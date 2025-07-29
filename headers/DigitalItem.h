@@ -1,0 +1,17 @@
+#ifndef DIGITALITEM_H
+#define DIGITALITEM_H
+#include "AbstractItem.h"
+
+class DigitalItem: public AbstractItem{
+private:
+	string publisher;
+	string genre;
+public:
+	DigitalItem(string _title, string _description, unsigned int _year, string _publisher, string _genre);
+
+	string getPublisher() const;
+	void setPublisher(string);
+	string getGenre() const;
+	void setGenre(string);
+};
+#endif

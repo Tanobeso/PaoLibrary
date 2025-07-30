@@ -6,7 +6,9 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    QLabel hello("Hello My Nigga!\nMy little soda pop");
-    hello.show();
+    std::string stringa("Pippo");
+    MainWindow mainwindow(stringa);
+    mainwindow.resize(1024,512);
+    mainwindow.show();
     return a.exec();
 }

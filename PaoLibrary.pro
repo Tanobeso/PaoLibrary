@@ -9,6 +9,7 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    src/test_widget.cpp \
     src\AbstractItem.cpp \
     src\Art.cpp \
     src\Book.cpp \
@@ -22,6 +23,7 @@ SOURCES += \
     src\mainwindow.cpp
 
 HEADERS += \
+    headers/test_widget.h \
     headers\AbstractItem.h \
     headers\Art.h \
     headers\Book.h \

@@ -8,7 +8,6 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
+    MainWindow(std::string& stringa);
 };
 #endif // MAINWINDOW_H

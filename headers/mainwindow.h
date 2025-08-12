@@ -3,11 +3,22 @@
 
 #include <QMainWindow>
 
+class QToolBar;
+class QAction;
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
+private:
+    void setupToolBar();
+
 public:
-    MainWindow(std::string& stringa);
+    explicit MainWindow(QWidget *parent = nullptr);
+
+private slots:
+    void onAddItem();
+    void onRemoveItem();
 };
+
 #endif // MAINWINDOW_H

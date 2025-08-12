@@ -21,7 +21,7 @@ void Series::setEpisodes(unsigned int e){
 
 QJsonObject Series::toJson() const{
     QJsonObject obj;
-    obj["type"]="movie";
+    obj["type"]="series";
     obj["title"]=QString::fromStdString(getTitle());
     obj["description"]=QString::fromStdString(getDescription());
     obj["year"]=(int)getYear();
@@ -33,3 +33,17 @@ QJsonObject Series::toJson() const{
     obj["episodes"]=(int)getEpisodes();
     return obj;
 };
+
+QDomElement Series::toXml(QDomDocument &doc) const {
+    QDomElement e = doc.createElement("Series");
+    e.appendChild(doc.createElement("Title")).appendChild(doc.createTextNode(QString::fromStdString(getTitle())));
+    e.appendChild(doc.createElement("Description")).appendChild(doc.createTextNode(QString::fromStdString(getDescription())));
+    e.appendChild(doc.createElement("Year")).appendChild(doc.createTextNode(QString::number (getYear())));
+    e.appendChild(doc.createElement("Publisher")).appendChild(doc.createTextNode(QString::fromStdString(getPublisher())));
+    e.appendChild(doc.createElement("Genre")).appendChild(doc.createTextNode(QString::fromStdString(getGenre())));
+    e.appendChild(doc.createElement("Cast")).appendChild(doc.createTextNode(QString::fromStdString(getCast())));
+    e.appendChild(doc.createElement("Director")).appendChild(doc.createTextNode(QString::fromStdString(getDirector())));
+    e.appendChild(doc.createElement("Seasons")).appendChild(doc.createTextNode(QString::number (getSeasons())));
+    e.appendChild(doc.createElement("Episodes")).appendChild(doc.createTextNode(QString::number (getEpisodes())));
+    return e;
+}

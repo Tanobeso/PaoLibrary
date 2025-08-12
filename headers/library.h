@@ -12,6 +12,7 @@ private:
 public:
     void addItem(std::shared_ptr<AbstractItem>);
     void removeItem();
-    void saveAsJson(const QString&);
+    void saveAsJson(const QString&) const;
+    void saveAsXml(const QString&) const;
 };
 #endif

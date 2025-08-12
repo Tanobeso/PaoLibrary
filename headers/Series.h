@@ -15,6 +15,7 @@ public:
 	void setEpisodes(unsigned int);
 
     QJsonObject toJson() const override;
+    QDomElement toXml(QDomDocument &doc) const override;
 };
 
 #endif

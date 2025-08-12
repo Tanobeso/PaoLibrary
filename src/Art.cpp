@@ -21,3 +21,14 @@ QJsonObject Art::toJson() const{
     obj["style"]=QString::fromStdString(getStyle());
     return obj;
 };
+
+QDomElement Art::toXml(QDomDocument &doc) const {
+    QDomElement e = doc.createElement("Art");
+    e.appendChild(doc.createElement("Title")).appendChild(doc.createTextNode(QString::fromStdString(getTitle())));
+    e.appendChild(doc.createElement("Description")).appendChild(doc.createTextNode(QString::fromStdString(getDescription())));
+    e.appendChild(doc.createElement("Year")).appendChild(doc.createTextNode(QString::number (getYear())));
+    e.appendChild(doc.createElement("Author")).appendChild(doc.createTextNode(QString::fromStdString(getAuthor())));
+    e.appendChild(doc.createElement("Size")).appendChild(doc.createTextNode(QString::fromStdString(getSize())));
+    e.appendChild(doc.createElement("Style")).appendChild(doc.createTextNode(QString::fromStdString(getStyle())));
+    return e;
+}

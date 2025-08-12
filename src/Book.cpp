@@ -40,3 +40,16 @@ QJsonObject Book::toJson() const{
     obj["edition"]=QString::fromStdString(getEdition());
     return obj;
 };
+
+QDomElement Book::toXml(QDomDocument &doc) const {
+    QDomElement e = doc.createElement("Book");
+    e.appendChild(doc.createElement("Title")).appendChild(doc.createTextNode(QString::fromStdString(getTitle())));
+    e.appendChild(doc.createElement("Description")).appendChild(doc.createTextNode(QString::fromStdString(getDescription())));
+    e.appendChild(doc.createElement("Year")).appendChild(doc.createTextNode(QString::number (getYear())));
+    e.appendChild(doc.createElement("Author")).appendChild(doc.createTextNode(QString::fromStdString(getAuthor())));
+    e.appendChild(doc.createElement("Size")).appendChild(doc.createTextNode(QString::fromStdString(getSize())));
+    e.appendChild(doc.createElement("Publisher")).appendChild(doc.createTextNode(QString::fromStdString(getPublisher())));
+    e.appendChild(doc.createElement("Genre")).appendChild(doc.createTextNode(QString::fromStdString(getGenre())));
+    e.appendChild(doc.createElement("Edition")).appendChild(doc.createTextNode(QString::fromStdString(getEdition())));
+    return e;
+}

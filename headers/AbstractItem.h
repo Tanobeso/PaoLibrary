@@ -2,6 +2,7 @@
 #define ABSTRACTITEM_H
 #include <string>
 #include <QJsonObject>
+#include <QDomDocument>
 
 using std::string;
 
@@ -22,5 +23,6 @@ public:
 	void setYear(unsigned int);
 
     virtual QJsonObject toJson() const = 0;
+    virtual QDomElement toXml(QDomDocument &doc) const = 0;
 };
 #endif

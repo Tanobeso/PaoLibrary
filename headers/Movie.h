@@ -12,6 +12,7 @@ public:
     void setLength(unsigned int);
 
     QJsonObject toJson() const override;
+    QDomElement toXml(QDomDocument &doc) const override;
 };
 
 #endif

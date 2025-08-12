@@ -2,6 +2,7 @@
 #define ART_H
 #include "PhysicalItem.h"
 
+
 class Art: public PhysicalItem{
 private:
 	string style;
@@ -12,5 +13,6 @@ public:
 	void setStyle(string);
 
     QJsonObject toJson() const override;
+    QDomElement toXml(QDomDocument &doc) const override;
 };
 #endif

@@ -10,3 +10,15 @@ string Videogame::getDeveloper() const{
 void Videogame::setDeveloper(string d){
     this->developer=d;
 };
+
+QJsonObject Videogame::toJson() const{
+    QJsonObject obj;
+    obj["type"]="movie";
+    obj["title"]=QString::fromStdString(getTitle());
+    obj["description"]=QString::fromStdString(getDescription());
+    obj["year"]=(int)getYear();
+    obj["publisher"]=QString::fromStdString(getPublisher());
+    obj["genre"]=QString::fromStdString(getGenre());
+    obj["developer"]=QString::fromStdString(getDeveloper());
+    return obj;
+};

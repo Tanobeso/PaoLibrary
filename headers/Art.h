@@ -10,5 +10,7 @@ public:
 
 	string getStyle() const;
 	void setStyle(string);
+
+    QJsonObject toJson() const override;
 };
 #endif

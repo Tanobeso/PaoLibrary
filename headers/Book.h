@@ -16,5 +16,7 @@ public:
 	void setGenre(string);
 	string getEdition() const;
     void setEdition(string);
+
+    QJsonObject toJson() const override;
 };
 #endif

@@ -11,6 +11,7 @@ public:
 	string getDeveloper() const;
 	void setDeveloper(string);
 
+    QJsonObject toJson() const override;
 };
 
 #endif

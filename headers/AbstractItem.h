@@ -1,6 +1,8 @@
 #ifndef ABSTRACTITEM_H
 #define ABSTRACTITEM_H
 #include <string>
+#include <QJsonObject>
+
 using std::string;
 
 class AbstractItem{
@@ -18,5 +20,7 @@ public:
 	void setDescription(string);
 	unsigned int getYear() const;
 	void setYear(unsigned int);
+
+    virtual QJsonObject toJson() const = 0;
 };
 #endif

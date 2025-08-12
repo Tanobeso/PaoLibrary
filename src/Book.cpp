@@ -26,3 +26,17 @@ string Book::getEdition() const{
 void Book::setEdition(string e){
     this->edition=e;
 };
+
+QJsonObject Book::toJson() const{
+    QJsonObject obj;
+    obj["type"]="book";
+    obj["title"]=QString::fromStdString(getTitle());
+    obj["description"]=QString::fromStdString(getDescription());
+    obj["year"]=(int)getYear();
+    obj["author"]=QString::fromStdString(getAuthor());
+    obj["size"]=QString::fromStdString(getSize());
+    obj["publisher"]=QString::fromStdString(getPublisher());
+    obj["genre"]=QString::fromStdString(getGenre());
+    obj["edition"]=QString::fromStdString(getEdition());
+    return obj;
+};

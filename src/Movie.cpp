@@ -10,3 +10,17 @@ unsigned int Movie::getLength() const{
 void Movie::setLength(unsigned int min=0){
     this->minutes=min;
 };
+
+QJsonObject Movie::toJson() const{
+    QJsonObject obj;
+    obj["type"]="movie";
+    obj["title"]=QString::fromStdString(getTitle());
+    obj["description"]=QString::fromStdString(getDescription());
+    obj["year"]=(int)getYear();
+    obj["publisher"]=QString::fromStdString(getPublisher());
+    obj["genre"]=QString::fromStdString(getGenre());
+    obj["cast"]=QString::fromStdString(getCast());
+    obj["director"]=QString::fromStdString(getDirector());
+    obj["length"]=(int)getLength();
+    return obj;
+};

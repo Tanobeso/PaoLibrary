@@ -10,6 +10,8 @@ public:
 
     unsigned int getLength() const;
     void setLength(unsigned int);
+
+    QJsonObject toJson() const override;
 };
 
 #endif

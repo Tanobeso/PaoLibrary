@@ -3,13 +3,15 @@
 
 #include "AbstractItem.h"
 #include <string>
-#include <list>
+#include <qlist>
 using std::string;
 
-class library{
+class Library{
 private:
-    std::list<AbstractItem> lib;
+    QList<std::shared_ptr<AbstractItem>> lib;
 public:
-
+    void addItem(std::shared_ptr<AbstractItem>);
+    void removeItem();
+    void saveAsJson(const QString&);
 };
 #endif

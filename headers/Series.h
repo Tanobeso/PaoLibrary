@@ -13,6 +13,8 @@ public:
 	void setSeasons(unsigned int);
 	unsigned int getEpisodes() const;
 	void setEpisodes(unsigned int);
+
+    QJsonObject toJson() const override;
 };
 
 #endif

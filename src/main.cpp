@@ -1,5 +1,5 @@
-#include "..\headers\mainwindow.h"
-#include "..\headers\library.h"
+#include "..\headers\MainWindow.h"
+#include "..\headers\Library.h"
 #include <QApplication>
 #include "..\headers\Book.h"
 #include "..\headers\Art.h"

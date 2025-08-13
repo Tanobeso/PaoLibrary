@@ -1,4 +1,4 @@
-#include "..\headers\library.h"
+#include "..\headers\Library.h"
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QFile>

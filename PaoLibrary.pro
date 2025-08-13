@@ -12,32 +12,30 @@ CONFIG += c++17
 
 SOURCES += \
     src/Library.cpp \
-    src/test_widget.cpp \
-    src\AbstractItem.cpp \
-    src\Art.cpp \
-    src\Book.cpp \
-    src\DigitalItem.cpp \
-    src\Movie.cpp \
-    src\PhysicalItem.cpp \
-    src\Series.cpp \
-    src\Video.cpp \
-    src\Videogame.cpp \
-    src\main.cpp \
-    src\mainwindow.cpp
+    src/MainWindow.cpp \
+    src/AbstractItem.cpp \
+    src/Art.cpp \
+    src/Book.cpp \
+    src/DigitalItem.cpp \
+    src/Movie.cpp \
+    src/PhysicalItem.cpp \
+    src/Series.cpp \
+    src/Video.cpp \
+    src/Videogame.cpp \
+    src/main.cpp
 
 HEADERS += \
-    headers/test_widget.h \
-    headers\AbstractItem.h \
-    headers\Art.h \
-    headers\Book.h \
-    headers\DigitalItem.h \
-    headers\Movie.h \
-    headers\PhysicalItem.h \
-    headers\Series.h \
-    headers\Video.h \
-    headers\Videogame.h \
-    headers\library.h \
-    headers\mainwindow.h
+    headers/Library.h \
+    headers/MainWindow.h \
+    headers/AbstractItem.h \
+    headers/Art.h \
+    headers/Book.h \
+    headers/DigitalItem.h \
+    headers/Movie.h \
+    headers/PhysicalItem.h \
+    headers/Series.h \
+    headers/Video.h \
+    headers/Videogame.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

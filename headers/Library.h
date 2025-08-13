@@ -3,7 +3,7 @@
 
 #include "AbstractItem.h"
 #include <string>
-#include <qlist>
+#include <QList>
 using std::string;
 
 class Library{

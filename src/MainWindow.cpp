@@ -1,5 +1,4 @@
-#include "..\headers\mainwindow.h"
-#include "..\headers\test_widget.h"
+#include "..\headers\MainWindow.h"
 #include <QToolBar>
 #include <QAction>
 #include <QDebug>

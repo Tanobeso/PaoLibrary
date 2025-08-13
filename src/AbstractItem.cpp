@@ -1,4 +1,4 @@
-#include "..\headers\AbstractItem.h"
+#include "../headers/AbstractItem.h"
 
 AbstractItem::AbstractItem(string _title, string _description, unsigned int _year) : title(_title), description(_description), year(_year){
 };

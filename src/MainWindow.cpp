@@ -1,4 +1,4 @@
-#include "..\headers\MainWindow.h"
+#include "../headers/MainWindow.h"
 #include <QToolBar>
 #include <QAction>
 #include <QDebug>

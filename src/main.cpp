@@ -1,11 +1,11 @@
-#include "..\headers\MainWindow.h"
-#include "..\headers\Library.h"
+#include "../headers/MainWindow.h"
+#include "../headers/Library.h"
 #include <QApplication>
-#include "..\headers\Book.h"
-#include "..\headers\Art.h"
-#include "..\headers\Movie.h"
-#include "..\headers\Series.h"
-#include "..\headers\Videogame.h"
+#include "../headers/Book.h"
+#include "../headers/Art.h"
+#include "../headers/Movie.h"
+#include "../headers/Series.h"
+#include "../headers/Videogame.h"
 
 int main(int argc, char *argv[])
 {

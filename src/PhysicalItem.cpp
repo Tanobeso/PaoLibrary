@@ -1,4 +1,4 @@
-#include "..\headers\PhysicalItem.h"
+#include "../headers/PhysicalItem.h"
 
 PhysicalItem::PhysicalItem(string _title, string _description, unsigned int _year, string _author, string _size): AbstractItem(_title, _description, _year), author(_author), size(_size){
 };

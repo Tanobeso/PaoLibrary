@@ -1,4 +1,4 @@
-#include "..\headers\Book.h"
+#include "../headers/Book.h"
 
 Book::Book(string _title, string _description, unsigned int _year, string _author, string _size, string _publisher, string _genre, string _edition): PhysicalItem(_title, _description, _year, _author, _size), publisher(_publisher), genre(_genre), edition(_edition){
 };

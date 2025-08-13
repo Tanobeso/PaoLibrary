@@ -1,4 +1,4 @@
-#include "..\headers\Video.h"
+#include "../headers/Video.h"
 
 Video::Video(string _title, string _description, unsigned int _year, string _publisher, string _genre, string _cast, string _director) : DigitalItem(_title, _description, _year, _publisher, _genre), cast(_cast), director(_director){
 };

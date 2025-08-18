@@ -2,6 +2,7 @@
 #include "../headers/Library.h"
 #include <QApplication>
 #include "../headers/JsonManager.h"
+#include "../headers/XmlManager.h"
 
 int main(int argc, char *argv[])
 {
@@ -18,8 +19,8 @@ int main(int argc, char *argv[])
     lib.addItem(series);
     lib.addItem(videogame);
     lib.saveAsJson("test.json");*/
-    lib=loadJson("test.json");
-    lib.saveAsXml("test.xml");
+    lib=loadXml("test.xml");
+    lib.saveAsJson("test.json");
     QApplication a(argc, argv);
     std::string stringa("Pippo");
     MainWindow mainwindow;

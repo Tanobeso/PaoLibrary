@@ -23,6 +23,7 @@ SOURCES += \
     src/Series.cpp \
     src/Video.cpp \
     src/Videogame.cpp \
+    src/XmlManager.cpp \
     src/main.cpp
 
 HEADERS += \
@@ -37,7 +38,8 @@ HEADERS += \
     headers/PhysicalItem.h \
     headers/Series.h \
     headers/Video.h \
-    headers/Videogame.h
+    headers/Videogame.h \
+    headers/XmlManager.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

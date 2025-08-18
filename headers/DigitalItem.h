@@ -8,6 +8,7 @@ private:
 	string genre;
 public:
 	DigitalItem(string _title, string _description, unsigned int _year, string _publisher, string _genre);
+    DigitalItem()=default;
 
 	string getPublisher() const;
 	void setPublisher(string);

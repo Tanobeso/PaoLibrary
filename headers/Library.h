@@ -14,5 +14,7 @@ public:
     void removeItem();
     void saveAsJson(const QString&) const;
     void saveAsXml(const QString&) const;
+
+    Library& operator=(const QList<std::shared_ptr<AbstractItem>>& newItems);
 };
 #endif

@@ -8,7 +8,8 @@ private:
 	string size;
 public:
 	PhysicalItem(string _title, string _description, unsigned int _year, string _author, string _size);
-	
+    PhysicalItem()=default;
+
 	string getAuthor() const;
 	void setAuthor(string);
 	string getSize() const;

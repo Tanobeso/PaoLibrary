@@ -8,6 +8,7 @@ private:
 	string director;
 public:
 	Video(string _title, string _description, unsigned int _year, string _publisher, string _genre, string _cast, string _director);
+    Video()=default;
 
 	string getCast() const;
 	void setCast(string);

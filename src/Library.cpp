@@ -9,6 +9,11 @@ void Library::addItem(std::shared_ptr<AbstractItem> item){
     lib.append(item);
 }
 
+Library& Library::operator=(const QList<std::shared_ptr<AbstractItem>>& newItems) {
+    lib = newItems;
+    return *this;
+}
+
 void Library::saveAsJson(const QString& nome) const{
     QJsonArray jsonArray;
     for (const auto& item : lib){

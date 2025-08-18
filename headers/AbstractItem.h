@@ -13,6 +13,7 @@ private:
 	unsigned int year;
 public:
     AbstractItem(string _title, string _description, unsigned int _year);
+    AbstractItem()=default;
 	virtual ~AbstractItem()=default;
 	
 	string getTitle() const;

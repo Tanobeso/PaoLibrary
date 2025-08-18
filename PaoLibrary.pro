@@ -11,6 +11,7 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    src/JsonManager.cpp \
     src/Library.cpp \
     src/MainWindow.cpp \
     src/AbstractItem.cpp \
@@ -25,6 +26,7 @@ SOURCES += \
     src/main.cpp
 
 HEADERS += \
+    headers/JsonManager.h \
     headers/Library.h \
     headers/MainWindow.h \
     headers/AbstractItem.h \

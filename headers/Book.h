@@ -9,7 +9,8 @@ private:
 	string edition;
 public:
 	Book(string _title, string _description, unsigned int _year, string _author, string _size, string _publisher, string _genre, string _edition);
-	
+    Book()=default;
+
 	string getPublisher() const;
 	void setPublisher(string);
 	string getGenre() const;

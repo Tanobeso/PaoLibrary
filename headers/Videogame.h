@@ -7,6 +7,7 @@ private:
 	string developer;
 public:
 	Videogame(string _title, string _description, unsigned int _year, string _publ, string _genre, string dev);
+    Videogame()=default;
 
 	string getDeveloper() const;
 	void setDeveloper(string);

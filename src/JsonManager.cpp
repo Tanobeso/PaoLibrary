@@ -61,6 +61,7 @@ std::shared_ptr<Art> fromJsonArt(QJsonObject& obj){
     item->setTitle(obj["title"].toString().toStdString());
     item->setDescription(obj["description"].toString().toStdString());
     item->setYear(obj["year"].toInt());
+    item->setImage(obj["image"].toString().toStdString());
     item->setAuthor(obj["author"].toString().toStdString());
     item->setSize(obj["size"].toString().toStdString());
     item->setStyle(obj["style"].toString().toStdString());
@@ -71,6 +72,7 @@ std::shared_ptr<Book> fromJsonBook(QJsonObject& obj){
     item->setTitle(obj["title"].toString().toStdString());
     item->setDescription(obj["description"].toString().toStdString());
     item->setYear(obj["year"].toInt());
+    item->setImage(obj["image"].toString().toStdString());
     item->setAuthor(obj["author"].toString().toStdString());
     item->setSize(obj["size"].toString().toStdString());
     item->setPublisher(obj["publisher"].toString().toStdString());
@@ -83,6 +85,7 @@ std::shared_ptr<Movie> fromJsonMovie(QJsonObject& obj){
     item->setTitle(obj["title"].toString().toStdString());
     item->setDescription(obj["description"].toString().toStdString());
     item->setYear(obj["year"].toInt());
+    item->setImage(obj["image"].toString().toStdString());
     item->setPublisher(obj["publisher"].toString().toStdString());
     item->setGenre(obj["genre"].toString().toStdString());
     item->setCast(obj["cast"].toString().toStdString());
@@ -95,6 +98,7 @@ std::shared_ptr<Series> fromJsonSeries(QJsonObject& obj){
     item->setTitle(obj["title"].toString().toStdString());
     item->setDescription(obj["description"].toString().toStdString());
     item->setYear(obj["year"].toInt());
+    item->setImage(obj["image"].toString().toStdString());
     item->setPublisher(obj["publisher"].toString().toStdString());
     item->setGenre(obj["genre"].toString().toStdString());
     item->setCast(obj["cast"].toString().toStdString());
@@ -108,6 +112,7 @@ std::shared_ptr<Videogame> fromJsonVideogame(QJsonObject& obj){
     item->setTitle(obj["title"].toString().toStdString());
     item->setDescription(obj["description"].toString().toStdString());
     item->setYear(obj["year"].toInt());
+    item->setImage(obj["image"].toString().toStdString());
     item->setPublisher(obj["publisher"].toString().toStdString());
     item->setGenre(obj["genre"].toString().toStdString());
     item->setDeveloper(obj["developer"].toString().toStdString());

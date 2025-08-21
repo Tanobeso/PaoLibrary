@@ -1,13 +1,13 @@
 #include "../headers/Series.h"
 
-Series::Series(string _title, string _description, unsigned int _year, string _publisher, string _genre, string _cast, string _director, unsigned int _seasons, unsigned int _episodes) : Video(_title, _description, _year, _publisher, _genre, _cast, _director), seasons(_seasons), episodes(_episodes){
+Series::Series(string _title, string _description, unsigned int _year, string _image, string _publisher, string _genre, string _cast, string _director, unsigned int _seasons, unsigned int _episodes) : Video(_title, _description, _year, _image, _publisher, _genre, _cast, _director), seasons(_seasons), episodes(_episodes){
 };
 
 unsigned int Series::getSeasons() const{
     return this->seasons;
 };
 
-void Series::setSeasons(unsigned int s){
+void Series::setSeasons(const unsigned int& s){
     this->seasons=s;
 };
 
@@ -15,7 +15,7 @@ unsigned int Series::getEpisodes() const{
     return this->episodes;
 };
 
-void Series::setEpisodes(unsigned int e){
+void Series::setEpisodes(const unsigned int& e){
     this->episodes=e;
 };
 
@@ -25,6 +25,7 @@ QJsonObject Series::toJson() const{
     obj["title"]=QString::fromStdString(getTitle());
     obj["description"]=QString::fromStdString(getDescription());
     obj["year"]=(int)getYear();
+    obj["image"]=QString::fromStdString(getImage());
     obj["publisher"]=QString::fromStdString(getPublisher());
     obj["genre"]=QString::fromStdString(getGenre());
     obj["cast"]=QString::fromStdString(getCast());
@@ -39,6 +40,7 @@ QDomElement Series::toXml(QDomDocument &doc) const {
     e.appendChild(doc.createElement("Title")).appendChild(doc.createTextNode(QString::fromStdString(getTitle())));
     e.appendChild(doc.createElement("Description")).appendChild(doc.createTextNode(QString::fromStdString(getDescription())));
     e.appendChild(doc.createElement("Year")).appendChild(doc.createTextNode(QString::number (getYear())));
+    e.appendChild(doc.createElement("Image")).appendChild(doc.createTextNode(QString::fromStdString(getImage())));
     e.appendChild(doc.createElement("Publisher")).appendChild(doc.createTextNode(QString::fromStdString(getPublisher())));
     e.appendChild(doc.createElement("Genre")).appendChild(doc.createTextNode(QString::fromStdString(getGenre())));
     e.appendChild(doc.createElement("Cast")).appendChild(doc.createTextNode(QString::fromStdString(getCast())));

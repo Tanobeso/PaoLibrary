@@ -11,17 +11,20 @@ private:
     string title;
     string description;
 	unsigned int year;
+    string image;
 public:
-    AbstractItem(string _title, string _description, unsigned int _year);
+    AbstractItem(string _title, string _description, unsigned int _year, string _image);
     AbstractItem()=default;
 	virtual ~AbstractItem()=default;
 	
 	string getTitle() const;
-	void setTitle(string);
+    void setTitle(const string&);
 	string getDescription() const;
-	void setDescription(string);
+    void setDescription(const string&);
 	unsigned int getYear() const;
-	void setYear(unsigned int);
+    void setYear(const unsigned int&);
+    string getImage() const;
+    void setImage(const string&);
 
     virtual QJsonObject toJson() const = 0;
     virtual QDomElement toXml(QDomDocument &doc) const = 0;

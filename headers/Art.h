@@ -7,11 +7,11 @@ class Art: public PhysicalItem{
 private:
 	string style;
 public:
-	Art(string _title, string _description, unsigned int _year, string _author, string _size, string _style);
+    Art(string _title, string _description, unsigned int _year, string _image, string _author, string _size, string _style);
     Art()=default;
 
 	string getStyle() const;
-	void setStyle(string);
+    void setStyle(const string&);
 
     QJsonObject toJson() const override;
     QDomElement toXml(QDomDocument &doc) const override;

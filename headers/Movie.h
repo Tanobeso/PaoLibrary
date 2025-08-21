@@ -6,11 +6,11 @@ class Movie: public Video{
 private:
 	unsigned int minutes;
 public:
-	Movie(string _title, string _description, unsigned int _year, string _publisher, string _genre, string _cast, string _director, unsigned int _minutes);
+    Movie(string _title, string _description, unsigned int _year, string _image, string _publisher, string _genre, string _cast, string _director, unsigned int _minutes);
     Movie()=default;
 
     unsigned int getLength() const;
-    void setLength(unsigned int);
+    void setLength(const unsigned int&);
 
     QJsonObject toJson() const override;
     QDomElement toXml(QDomDocument &doc) const override;

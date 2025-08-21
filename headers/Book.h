@@ -8,15 +8,15 @@ private:
 	string genre;
 	string edition;
 public:
-	Book(string _title, string _description, unsigned int _year, string _author, string _size, string _publisher, string _genre, string _edition);
+    Book(string _title, string _description, unsigned int _year, string _image, string _author, string _size, string _publisher, string _genre, string _edition);
     Book()=default;
 
 	string getPublisher() const;
-	void setPublisher(string);
+    void setPublisher(const string&);
 	string getGenre() const;
-	void setGenre(string);
+    void setGenre(const string&);
 	string getEdition() const;
-    void setEdition(string);
+    void setEdition(const string&);
 
     QJsonObject toJson() const override;
     QDomElement toXml(QDomDocument &doc) const override;

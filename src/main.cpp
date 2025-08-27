@@ -19,11 +19,11 @@ int main(int argc, char *argv[])
     lib.addItem(series);
     lib.addItem(videogame);
     lib.saveAsJson("test.json");*/
-    lib=loadXml("test.xml");
+    lib.loadLib(loadXml("test.xml"));
     lib.saveAsJson("test.json");
     QApplication a(argc, argv);
     std::string stringa("Pippo");
-    MainWindow mainwindow;
+    MainWindow mainwindow(&lib);
     mainwindow.resize(1024,512);
     mainwindow.show();
     return a.exec();

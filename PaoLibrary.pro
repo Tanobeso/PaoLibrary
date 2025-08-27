@@ -13,6 +13,7 @@ CONFIG += c++17
 SOURCES += \
     src/JsonManager.cpp \
     src/Library.cpp \
+    src/LibraryFilterModel.cpp \
     src/MainWindow.cpp \
     src/AbstractItem.cpp \
     src/Art.cpp \
@@ -29,6 +30,7 @@ SOURCES += \
 HEADERS += \
     headers/JsonManager.h \
     headers/Library.h \
+    headers/LibraryFilterModel.h \
     headers/MainWindow.h \
     headers/AbstractItem.h \
     headers/Art.h \

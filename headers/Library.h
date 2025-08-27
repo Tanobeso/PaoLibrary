@@ -2,19 +2,30 @@
 #define LIBRARY_H
 
 #include "AbstractItem.h"
-#include <string>
 #include <QList>
-using std::string;
+#include <QAbstractListModel>
 
-class Library{
+class Library : public QAbstractListModel {
+    Q_OBJECT
 private:
     QList<std::shared_ptr<AbstractItem>> lib;
 public:
+    enum Roles {                    //ruoli personalizzati
+        ImageRole = Qt::UserRole,
+        TitleRole = Qt::UserRole+1
+    //qualcosa per tipi oggetto
+    };
+
+    explicit Library(QObject* parent = nullptr);
+
+    void loadLib(const QList<std::shared_ptr<AbstractItem>>&);
+    std::shared_ptr<AbstractItem> getItem(int) const;
     void addItem(std::shared_ptr<AbstractItem>);
-    void removeItem();
     void saveAsJson(const QString&) const;
     void saveAsXml(const QString&) const;
 
-    Library& operator=(const QList<std::shared_ptr<AbstractItem>>& newItems);
+    int rowCount(const QModelIndex& = QModelIndex()) const override;
+    QVariant data(const QModelIndex&,int) const override;
+
 };
 #endif

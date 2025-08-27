@@ -2,11 +2,42 @@
 #include <QToolBar>
 #include <QAction>
 #include <QDebug>
-
+#include <QLayout>
+#include <QLineEdit>
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent){
     setWindowTitle("Libreria Multimediale");
     setupToolBar();
 };
+
+MainWindow::MainWindow(Library* libraryModel, QWidget* parent)
+    : QMainWindow(parent),
+    model(libraryModel),
+    proxy(new LibraryFilterModel(this)),
+    view(new QListView(this)),
+    searchEdit(new QLineEdit(this))
+{
+    // proxy collegato al modello
+    proxy->setSourceModel(model);
+
+    // config view
+    view->setModel(proxy);
+    view->setViewMode(QListView::IconMode);
+    view->setIconSize(QSize(120, 160));
+    view->setGridSize(QSize(160, 200));
+    view->setResizeMode(QListView::Adjust);
+
+    // layout molto semplice: QLineEdit sopra la QListView
+    auto central = new QWidget(this);
+    auto layout = new QVBoxLayout(central);
+    layout->addWidget(searchEdit);
+    layout->addWidget(view);
+    setCentralWidget(central);
+
+    // collego la ricerca titolo
+    connect(searchEdit, &QLineEdit::textChanged, this, [this](const QString &text){
+        proxy->setTitleFilter(text);
+    });
+}
 
 void MainWindow::setupToolBar(){
     QToolBar *toolBar = new QToolBar("Barra strumenti", this);

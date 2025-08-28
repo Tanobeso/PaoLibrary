@@ -5,6 +5,7 @@
 #include <QDomDocument>
 #include <QCoreApplication>
 #include <QIcon>
+#include <QDebug>
 
 Library::Library(QObject* parent) : QAbstractListModel(parent){};
 
@@ -39,7 +40,8 @@ QVariant Library::data(const QModelIndex& index, int role) const{
     case ImageRole: {
         QString Path = QCoreApplication::applicationDirPath()
         + "/" + QString::fromStdString(item->getImage());
-        return QIcon(Path);  // QIcon si integra bene con QListView
+        qDebug()<<Path;
+        return QIcon(Path);
     }
 
     /*case TypeRole:

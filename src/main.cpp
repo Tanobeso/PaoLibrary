@@ -19,8 +19,8 @@ int main(int argc, char *argv[])
     lib.addItem(series);
     lib.addItem(videogame);
     lib.saveAsJson("test.json");*/
-    lib.loadLib(loadXml("test.xml"));
-    lib.saveAsJson("test.json");
+    lib.loadLib(loadJson("test.json"));
+    lib.saveAsXml("test.xml");
     QApplication a(argc, argv);
     std::string stringa("Pippo");
     MainWindow mainwindow(&lib);

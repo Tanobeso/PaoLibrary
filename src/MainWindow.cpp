@@ -16,24 +16,20 @@ MainWindow::MainWindow(Library* libraryModel, QWidget* parent)
     view(new QListView(this)),
     searchEdit(new QLineEdit(this))
 {
-    // proxy collegato al modello
     proxy->setSourceModel(model);
 
-    // config view
     view->setModel(proxy);
     view->setViewMode(QListView::IconMode);
     view->setIconSize(QSize(120, 160));
     view->setGridSize(QSize(160, 200));
     view->setResizeMode(QListView::Adjust);
 
-    // layout molto semplice: QLineEdit sopra la QListView
     auto central = new QWidget(this);
     auto layout = new QVBoxLayout(central);
     layout->addWidget(searchEdit);
     layout->addWidget(view);
     setCentralWidget(central);
 
-    // collego la ricerca titolo
     connect(searchEdit, &QLineEdit::textChanged, this, [this](const QString &text){
         proxy->setTitleFilter(text);
     });

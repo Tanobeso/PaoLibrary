@@ -1,0 +1,59 @@
+[
+    {
+        "author": "autore",
+        "description": "a",
+        "edition": "autore",
+        "genre": "genre",
+        "image": "../../../resources/winter_wonderland_neeko___render_by_lol_overlay_dcsdvbn-pre.png",
+        "publisher": "publisher",
+        "size": "size",
+        "title": "Il Signore Degli Spinelli",
+        "type": "book",
+        "year": 1
+    },
+    {
+        "author": "autore",
+        "description": "a",
+        "image": "../../../resources/winter_wonderland_neeko___render_by_lol_overlay_dcsdvbn-pre.png",
+        "size": "size",
+        "style": "style",
+        "title": "Pittrice",
+        "type": "art",
+        "year": 1
+    },
+    {
+        "cast": "cast",
+        "description": "a",
+        "director": "director",
+        "genre": "genre",
+        "image": "../../../resources/winter_wonderland_neeko___render_by_lol_overlay_dcsdvbn-pre.png",
+        "length": 1,
+        "publisher": "publisher",
+        "title": "Dune",
+        "type": "movie",
+        "year": 1
+    },
+    {
+        "cast": "cast",
+        "description": "a",
+        "director": "director",
+        "episodes": 2,
+        "genre": "genre",
+        "image": "../../../resources/winter_wonderland_neeko___render_by_lol_overlay_dcsdvbn-pre.png",
+        "publisher": "publisher",
+        "seasons": 1,
+        "title": "Piggly Winks",
+        "type": "series",
+        "year": 1
+    },
+    {
+        "description": "a",
+        "developer": "developer",
+        "genre": "genre",
+        "image": "../../../resources/winter_wonderland_neeko___render_by_lol_overlay_dcsdvbn-pre.png",
+        "publisher": "publisher",
+        "title": "Clair Obscur",
+        "type": "videogame",
+        "year": 1
+    }
+]

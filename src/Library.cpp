@@ -40,7 +40,7 @@ QVariant Library::data(const QModelIndex& index, int role) const{
     case ImageRole: {
         QString Path = QCoreApplication::applicationDirPath()
         + "/" + QString::fromStdString(item->getImage());
-        qDebug()<<Path;
+
         return QIcon(Path);
     }
 

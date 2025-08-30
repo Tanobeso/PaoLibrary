@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
     lib.addItem(videogame);
     lib.saveAsJson("test.json");*/
     lib.loadLib(loadJson("resources/test.json"));
-    lib.saveAsXml("test.xml");
+    lib.saveAsXml("resources/test.xml");
     QApplication a(argc, argv);
     std::string stringa("Pippo");
     MainWindow mainwindow(&lib);

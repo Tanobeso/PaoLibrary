@@ -3,7 +3,9 @@
 #include <QJsonDocument>
 #include <QFile>
 #include <QDomDocument>
-
+void Library::loadLib(const QList<std::shared_ptr<AbstractItem>>& lista){
+    lib=lista;
+}
 std::shared_ptr<AbstractItem> Library::getItem(int i) const{
     if (i>0 && i<lib.size()) return lib[i];
     else return nullptr;

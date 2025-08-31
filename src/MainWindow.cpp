@@ -1,12 +1,13 @@
 #include "../headers/MainWindow.h"
-#include <QToolBar>
 #include <QAction>
 #include <QDebug>
 #include <QLayout>
 #include <QLineEdit>
+#include <QMenuBar>
+
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent){
     setWindowTitle("Libreria Multimediale");
-    setupToolBar();
+    setupMenu();
 };
 
 MainWindow::MainWindow(LibraryModel* libraryModel, QWidget* parent)
@@ -24,6 +25,7 @@ MainWindow::MainWindow(LibraryModel* libraryModel, QWidget* parent)
     view->setGridSize(QSize(160, 200));
     view->setResizeMode(QListView::Adjust);
 
+    setupMenu();
     auto central = new QWidget(this);
     auto layout = new QVBoxLayout(central);
     layout->addWidget(searchEdit);
@@ -35,21 +37,12 @@ MainWindow::MainWindow(LibraryModel* libraryModel, QWidget* parent)
     });
 }
 
-void MainWindow::setupToolBar(){
-    QToolBar *toolBar = new QToolBar("Barra strumenti", this);
-    toolBar->setToolButtonStyle(Qt::ToolButtonTextOnly); // Solo testo
-    addToolBar(toolBar);
-
-    // Aggiungi
-    QAction *addAction = new QAction("Aggiungi", this);
-    connect(addAction, &QAction::triggered, this, &MainWindow::onAddItem);
-    toolBar->addAction(addAction);
-
-    toolBar->addSeparator();
-    // Rimuovi
-    QAction *removeAction = new QAction("Rimuovi", this);
-    connect(removeAction, &QAction::triggered, this, &MainWindow::onRemoveItem);
-    toolBar->addAction(removeAction);
+void MainWindow::setupMenu(){
+    QMenu* fileMenu = menuBar()->addMenu("File");
+    QAction* saveJsonAction = fileMenu->addAction("Salva come Json");
+    QAction* saveXMLAction = fileMenu->addAction("Salva come XML");
+    QAction* loadJsonAction = fileMenu->addAction("Carica da Json");
+    QAction* loadXMLAction = fileMenu->addAction("Carica da XML");
 }
 
 void MainWindow::onAddItem(){

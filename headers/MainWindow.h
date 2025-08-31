@@ -6,15 +6,12 @@
 #include <QListView>
 #include "LibraryFilterModel.h"
 
-class QToolBar;
-class QAction;
-
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
 private:
-    void setupToolBar();
+    void setupMenu();
     LibraryModel* model = nullptr;
     LibraryFilterModel* proxy=nullptr;
     QListView* view = nullptr;

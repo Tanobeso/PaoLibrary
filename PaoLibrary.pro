@@ -14,6 +14,7 @@ SOURCES += \
     src/JsonManager.cpp \
     src/Library.cpp \
     src/LibraryFilterModel.cpp \
+    src/LibraryModel.cpp \
     src/MainWindow.cpp \
     src/AbstractItem.cpp \
     src/Art.cpp \
@@ -31,6 +32,7 @@ HEADERS += \
     headers/JsonManager.h \
     headers/Library.h \
     headers/LibraryFilterModel.h \
+    headers/LibraryModel.h \
     headers/MainWindow.h \
     headers/AbstractItem.h \
     headers/Art.h \

@@ -1,6 +1,6 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-#include "Library.h"
+#include "LibraryModel.h"
 #include <QMainWindow>
 #include <QSortFilterProxyModel>
 #include <QListView>
@@ -15,13 +15,13 @@ class MainWindow : public QMainWindow
 
 private:
     void setupToolBar();
-    Library* model = nullptr;
+    LibraryModel* model = nullptr;
     LibraryFilterModel* proxy=nullptr;
     QListView* view = nullptr;
     QLineEdit* searchEdit;
 public:
     explicit MainWindow(QWidget *parent = nullptr);
-    explicit MainWindow(Library* libModel, QWidget *parent = nullptr);
+    explicit MainWindow(LibraryModel* libModel, QWidget *parent = nullptr);
 
 private slots:
     void onAddItem();

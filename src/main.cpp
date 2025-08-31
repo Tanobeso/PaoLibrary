@@ -1,12 +1,12 @@
 #include "../headers/MainWindow.h"
-#include "../headers/Library.h"
+#include "../headers/LibraryModel.h"
 #include <QApplication>
 #include "../headers/JsonManager.h"
 #include "../headers/XmlManager.h"
 
 int main(int argc, char *argv[])
 {
-    Library lib;
+    LibraryModel lib;
  /*   auto libro = std::make_shared<Book>("Il Signore Degli Spinelli", "a", 1, "percorso/esempio", "autore", "size", "publisher", "genre", "edition");
     auto art = std::make_shared<Art>("Pittrice", "a", 1, "percorso/esempio", "autore", "size", "style");
     auto movie = std::make_shared<Movie>("Dune", "a", 1, "percorso/esempio", "publisher", "genre", "cast", "director", 1);

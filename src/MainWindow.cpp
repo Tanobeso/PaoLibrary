@@ -9,7 +9,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent){
     setupToolBar();
 };
 
-MainWindow::MainWindow(Library* libraryModel, QWidget* parent)
+MainWindow::MainWindow(LibraryModel* libraryModel, QWidget* parent)
     : QMainWindow(parent),
     model(libraryModel),
     proxy(new LibraryFilterModel(this)),

@@ -4,7 +4,7 @@
         <Title>Il Signore Degli Spinelli</Title>
         <Description>a</Description>
         <Year>1</Year>
-        <Image>../../../resources/winter_wonderland_neeko___render_by_lol_overlay_dcsdvbn-pre.png</Image>
+        <Image>resources/winter_wonderland_neeko___render_by_lol_overlay_dcsdvbn-pre.png</Image>
         <Author>autore</Author>
         <Size>size</Size>
         <Publisher>publisher</Publisher>
@@ -15,7 +15,7 @@
         <Title>Pittrice</Title>
         <Description>a</Description>
         <Year>1</Year>
-        <Image>../../../resources/winter_wonderland_neeko___render_by_lol_overlay_dcsdvbn-pre.png</Image>
+        <Image>resources/winter_wonderland_neeko___render_by_lol_overlay_dcsdvbn-pre.png</Image>
         <Author>autore</Author>
         <Size>size</Size>
         <Style>style</Style>
@@ -24,7 +24,7 @@
         <Title>Dune</Title>
         <Description>a</Description>
         <Year>1</Year>
-        <Image>../../../resources/winter_wonderland_neeko___render_by_lol_overlay_dcsdvbn-pre.png</Image>
+        <Image>resources/winter_wonderland_neeko___render_by_lol_overlay_dcsdvbn-pre.png</Image>
         <Publisher>publisher</Publisher>
         <Genre>genre</Genre>
         <Cast>cast</Cast>
@@ -35,7 +35,7 @@
         <Title>Piggly Winks</Title>
         <Description>a</Description>
         <Year>1</Year>
-        <Image>../../../resources/winter_wonderland_neeko___render_by_lol_overlay_dcsdvbn-pre.png</Image>
+        <Image>resources/winter_wonderland_neeko___render_by_lol_overlay_dcsdvbn-pre.png</Image>
         <Publisher>publisher</Publisher>
         <Genre>genre</Genre>
         <Cast>cast</Cast>
@@ -47,7 +47,7 @@
         <Title>Clair Obscur</Title>
         <Description>a</Description>
         <Year>1</Year>
-        <Image>../../../resources/winter_wonderland_neeko___render_by_lol_overlay_dcsdvbn-pre.png</Image>
+        <Image>resources/winter_wonderland_neeko___render_by_lol_overlay_dcsdvbn-pre.png</Image>
         <Publisher>publisher</Publisher>
         <Genre>genre</Genre>
         <Developer>developer</Developer>

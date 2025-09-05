@@ -29,10 +29,7 @@ QVariant LibraryModel::data(const QModelIndex& index, int role) const{
 
     case Qt::DecorationRole:
     case ImageRole: {
-        QString Path = QCoreApplication::applicationDirPath()
-        + "/" + QString::fromStdString(item->getImage());
-
-        return QIcon(Path);
+        return QIcon(QString::fromStdString(item->getImage()));
     }
 
     /*case TypeRole:

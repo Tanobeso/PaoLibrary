@@ -5,6 +5,8 @@
 #include <QSortFilterProxyModel>
 #include <QListView>
 #include "LibraryFilterModel.h"
+#include "QVBoxLayout"
+#include <QStackedWidget>
 
 class MainWindow : public QMainWindow
 {
@@ -17,6 +19,8 @@ private:
     LibrarySearchFilterModel* searchFilter=nullptr;
     QListView* view = nullptr;
     QLineEdit* searchEdit;
+    QStackedWidget* stackedWidget;
+    QWidget* visitorWidget;
 public:
     explicit MainWindow(QWidget *parent = nullptr);
 
@@ -26,6 +30,7 @@ private slots:
     void saveAsJson();
     void saveAsXml();
     void saveShortcut();
+    void itemClicked(const QModelIndex&);
 };
 
 #endif // MAINWINDOW_H

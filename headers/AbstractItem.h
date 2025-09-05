@@ -32,4 +32,5 @@ public:
 
     virtual void accept(ItemVisitor& visitor)=0;
 };
+Q_DECLARE_METATYPE(AbstractItem*)   //per restituire una QVariant con LibraryModel
 #endif

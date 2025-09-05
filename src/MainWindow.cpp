@@ -1,6 +1,7 @@
 #include "../headers/MainWindow.h"
 #include "../headers/JsonManager.h"
 #include "../headers/XmlManager.h"
+#include "../headers/ItemInfoVisitor.h"
 #include <QAction>
 #include <QDebug>
 #include <QLayout>
@@ -18,7 +19,9 @@ MainWindow::MainWindow(QWidget *parent)
     typeFilter(new LibraryTypeFilterModel(this)),
     searchFilter(new LibrarySearchFilterModel(this)),
     view(new QListView(this)),
-    searchEdit(new QLineEdit(this))
+    searchEdit(new QLineEdit(this)),
+    stackedWidget(new QStackedWidget(this)),
+    visitorWidget(new QWidget(this))
 {
     typeFilter->setSourceModel(model);              // Filtri tipo e ricerca a cascata
     searchFilter->setSourceModel(typeFilter);
@@ -37,12 +40,15 @@ MainWindow::MainWindow(QWidget *parent)
     auto central = new QWidget(this);
     auto layout = new QVBoxLayout(central);
     layout->addWidget(searchEdit);
-    layout->addWidget(view);
+    layout->addWidget(stackedWidget);
     setCentralWidget(central);
+    stackedWidget->addWidget(view);
 
     connect(searchEdit, &QLineEdit::textChanged, this, [this](const QString &text){
         searchFilter->setTitleFilter(text);
     });
+
+    connect(view, &QListView::clicked, this, &MainWindow::itemClicked);
 
     // Shortcut
 
@@ -181,3 +187,15 @@ void MainWindow::saveShortcut(){
 
     dialog.exec();
 };
+
+void MainWindow::itemClicked(const QModelIndex& index){
+    AbstractItem* item = index.data(Qt::UserRole+3).value<AbstractItem*>();
+
+    if (item) {
+        ItemInfoVisitor visitor;
+        item->accept(visitor);
+        visitorWidget = visitor.getWidget();
+        stackedWidget->addWidget(visitorWidget);
+        stackedWidget->setCurrentIndex(1);
+    }
+}

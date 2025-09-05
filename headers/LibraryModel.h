@@ -10,7 +10,8 @@ public:
     enum Roles {                    //ruoli personalizzati
         ImageRole = Qt::UserRole,
         TitleRole = Qt::UserRole+1,
-        TypeRole = Qt::UserRole+2
+        TypeRole = Qt::UserRole+2,
+        ReturnVariantRole = Qt::UserRole+3
     };
 
     explicit LibraryModel(QObject* parent = nullptr);

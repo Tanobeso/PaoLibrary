@@ -51,6 +51,10 @@ QVariant LibraryModel::data(const QModelIndex& index, int role) const{
             return "Series";
         if (dynamic_cast<Video*>(const_cast<AbstractItem*>(item.get())))
             return "Video";
+
+    case ReturnVariantRole:
+        return QVariant::fromValue(item.get());
+
     default:
         return QVariant();
     }

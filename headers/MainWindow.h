@@ -13,7 +13,8 @@ class MainWindow : public QMainWindow
 private:
     void setupMenu();
     LibraryModel* model = nullptr;
-    LibraryFilterModel* proxy=nullptr;
+    LibraryTypeFilterModel* typeFilter=nullptr;
+    LibrarySearchFilterModel* searchFilter=nullptr;
     QListView* view = nullptr;
     QLineEdit* searchEdit;
 public:

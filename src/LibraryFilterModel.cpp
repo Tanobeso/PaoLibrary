@@ -1,14 +1,14 @@
 #include "../headers/LibraryFilterModel.h"
 #include "../headers/LibraryModel.h"
 
-LibraryFilterModel::LibraryFilterModel(QObject *parent): QSortFilterProxyModel(parent) {}
+LibrarySearchFilterModel::LibrarySearchFilterModel(QObject *parent): QSortFilterProxyModel(parent) {}
 
-void LibraryFilterModel::setTitleFilter(const QString& s){
+void LibrarySearchFilterModel::setTitleFilter(const QString& s){
     titleFilter=s;
     invalidateFilter();
 }
 
-bool LibraryFilterModel::filterAcceptsRow(int sourceRow, const QModelIndex& sourceParent) const{
+bool LibrarySearchFilterModel::filterAcceptsRow(int sourceRow, const QModelIndex& sourceParent) const{
     QModelIndex index = sourceModel()->index(sourceRow, 0, sourceParent);
 
     QString title = sourceModel()->data(index, LibraryModel::TitleRole).toString();
@@ -19,7 +19,27 @@ bool LibraryFilterModel::filterAcceptsRow(int sourceRow, const QModelIndex& sour
         return false;
     }
 
-    // filtro tipi da fare
-
     return true;
+}
+
+LibraryTypeFilterModel::LibraryTypeFilterModel(QObject *parent): QSortFilterProxyModel(parent) {}
+
+void LibraryTypeFilterModel::setTypeFilter(const QString& s){
+    typeFilter=s;
+    invalidateFilter();
+}
+
+bool LibraryTypeFilterModel::filterAcceptsRow(int sourceRow, const QModelIndex& sourceParent) const{
+    QModelIndex index = sourceModel()->index(sourceRow, 0, sourceParent);
+
+    QString type = sourceModel()->data(index, LibraryModel::TypeRole).toString();
+
+    // filtro tipo
+    if (typeFilter.isEmpty())
+        return true;
+    else{
+        return type.contains(typeFilter);
+
+    }
+
 }

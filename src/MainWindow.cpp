@@ -6,8 +6,10 @@
 #include <QLayout>
 #include <QLineEdit>
 #include <QMenuBar>
-#include<QFileDialog>
+#include <QFileDialog>
 #include <QMessageBox>
+#include <QPushButton>
+#include <QShortcut>
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -41,6 +43,11 @@ MainWindow::MainWindow(QWidget *parent)
     connect(searchEdit, &QLineEdit::textChanged, this, [this](const QString &text){
         searchFilter->setTitleFilter(text);
     });
+
+    // Shortcut
+
+    QShortcut* saveShortcut = new QShortcut(QKeySequence("Ctrl+S"), this);
+    connect(saveShortcut, &QShortcut::activated, this, &MainWindow::saveShortcut);
 };
 
 void MainWindow::setupMenu(){
@@ -148,4 +155,29 @@ void MainWindow::saveAsXml(){
 
         model->saveAsXml(fileName);
     }
+};
+
+void MainWindow::saveShortcut(){
+    QDialog dialog(this);
+    dialog.setWindowTitle("Scegli il formato di salvataggio");  // Finestra scelta formato con scorciatoia salvataggio
+
+    QPushButton *btnJson = new QPushButton("Salva come JSON");
+    QPushButton *btnXml = new QPushButton("Salva come XML");
+
+    QHBoxLayout *layout = new QHBoxLayout;
+    layout->addWidget(btnJson);
+    layout->addWidget(btnXml);
+    dialog.setLayout(layout);
+
+    connect(btnJson, &QPushButton::clicked, &dialog, [&](){
+        saveAsJson();
+        dialog.accept();
+    });
+
+    connect(btnXml, &QPushButton::clicked, &dialog, [&](){
+        saveAsXml();
+        dialog.accept();
+    });
+
+    dialog.exec();
 };

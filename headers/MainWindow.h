@@ -25,6 +25,7 @@ private slots:
     void loadFromXml();
     void saveAsJson();
     void saveAsXml();
+    void saveShortcut();
 };
 
 #endif // MAINWINDOW_H

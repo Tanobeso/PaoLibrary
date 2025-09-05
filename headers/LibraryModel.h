@@ -9,8 +9,8 @@ class LibraryModel : public QAbstractListModel, public Library  {
 public:
     enum Roles {                    //ruoli personalizzati
         ImageRole = Qt::UserRole,
-        TitleRole = Qt::UserRole+1
-    //qualcosa per tipi oggetto
+        TitleRole = Qt::UserRole+1,
+        TypeRole = Qt::UserRole+2
     };
 
     explicit LibraryModel(QObject* parent = nullptr);

@@ -2,6 +2,12 @@
 #include <QCoreApplication>
 #include <QIcon>
 #include <QDebug>
+#include "../headers/Art.h"
+#include "../headers/Book.h"
+#include "../headers/Movie.h"
+#include "../headers/Series.h"
+#include "../headers/Video.h"
+
 
 LibraryModel::LibraryModel(QObject* parent) : QAbstractListModel(parent){};
 
@@ -32,13 +38,24 @@ QVariant LibraryModel::data(const QModelIndex& index, int role) const{
         return QIcon(QString::fromStdString(item->getImage()));
     }
 
-    /*case TypeRole:
-        ...
-    */
+    // Filtro per tipo tramite cast per evitare getType come richiesto
+
+    case TypeRole:
+        if (dynamic_cast<Art*>(const_cast<AbstractItem*>(item.get())))
+            return "Art";
+        if (dynamic_cast<Book*>(const_cast<AbstractItem*>(item.get())))
+            return "Book";
+        if (dynamic_cast<Movie*>(const_cast<AbstractItem*>(item.get())))
+            return "Movie";
+        if (dynamic_cast<Series*>(const_cast<AbstractItem*>(item.get())))
+            return "Series";
+        if (dynamic_cast<Video*>(const_cast<AbstractItem*>(item.get())))
+            return "Video";
     default:
         return QVariant();
     }
 }
+
 
 
 

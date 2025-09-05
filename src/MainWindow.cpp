@@ -13,13 +13,15 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent){
 MainWindow::MainWindow(LibraryModel* libraryModel, QWidget* parent)
     : QMainWindow(parent),
     model(libraryModel),
-    proxy(new LibraryFilterModel(this)),
+    typeFilter(new LibraryTypeFilterModel(this)),
+    searchFilter(new LibrarySearchFilterModel(this)),
     view(new QListView(this)),
     searchEdit(new QLineEdit(this))
 {
-    proxy->setSourceModel(model);
+    typeFilter->setSourceModel(model);              //filtri tipo e ricerca a cascata
+    searchFilter->setSourceModel(typeFilter);
 
-    view->setModel(proxy);
+    view->setModel(searchFilter);
     view->setViewMode(QListView::IconMode);
     view->setIconSize(QSize(120, 160));
     view->setGridSize(QSize(160, 200));
@@ -33,7 +35,7 @@ MainWindow::MainWindow(LibraryModel* libraryModel, QWidget* parent)
     setCentralWidget(central);
 
     connect(searchEdit, &QLineEdit::textChanged, this, [this](const QString &text){
-        proxy->setTitleFilter(text);
+        searchFilter->setTitleFilter(text);
     });
 }
 

@@ -55,3 +55,7 @@ QDomElement Book::toXml(QDomDocument &doc) const {
     e.appendChild(doc.createElement("Edition")).appendChild(doc.createTextNode(QString::fromStdString(getEdition())));
     return e;
 }
+
+void Book::accept(ItemVisitor& visitor) {
+    visitor.visitBook(*this);
+}

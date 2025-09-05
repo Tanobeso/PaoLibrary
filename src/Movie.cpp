@@ -39,3 +39,7 @@ QDomElement Movie::toXml(QDomDocument &doc) const {
     e.appendChild(doc.createElement("Length")).appendChild(doc.createTextNode(QString::number (getLength())));
     return e;
 }
+
+void Movie::accept(ItemVisitor& visitor) {
+    visitor.visitMovie(*this);
+}

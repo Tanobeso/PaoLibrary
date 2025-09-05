@@ -34,3 +34,7 @@ QDomElement Art::toXml(QDomDocument &doc) const {
     e.appendChild(doc.createElement("Style")).appendChild(doc.createTextNode(QString::fromStdString(getStyle())));
     return e;
 }
+
+void Art::accept(ItemVisitor& visitor) {
+    visitor.visitArt(*this);
+}

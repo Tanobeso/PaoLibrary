@@ -3,6 +3,7 @@
 #include <string>
 #include <QJsonObject>
 #include <QDomDocument>
+#include "ItemVisitor.h"
 
 using std::string;
 
@@ -28,5 +29,7 @@ public:
 
     virtual QJsonObject toJson() const = 0;
     virtual QDomElement toXml(QDomDocument &doc) const = 0;
+
+    virtual void accept(ItemVisitor& visitor)=0;
 };
 #endif

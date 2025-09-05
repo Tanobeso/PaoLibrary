@@ -35,3 +35,7 @@ QDomElement Videogame::toXml(QDomDocument &doc) const {
     e.appendChild(doc.createElement("Developer")).appendChild(doc.createTextNode(QString::fromStdString(getDeveloper())));
     return e;
 }
+
+void Videogame::accept(ItemVisitor& visitor) {
+    visitor.visitVideogame(*this);
+}

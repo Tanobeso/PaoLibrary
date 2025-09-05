@@ -49,3 +49,7 @@ QDomElement Series::toXml(QDomDocument &doc) const {
     e.appendChild(doc.createElement("Episodes")).appendChild(doc.createTextNode(QString::number (getEpisodes())));
     return e;
 }
+
+void Series::accept(ItemVisitor& visitor) {
+    visitor.visitSeries(*this);
+}

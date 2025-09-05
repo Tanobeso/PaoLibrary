@@ -29,6 +29,7 @@ SOURCES += \
     src/main.cpp
 
 HEADERS += \
+    headers/ItemVisitor.h \
     headers/JsonManager.h \
     headers/Library.h \
     headers/LibraryFilterModel.h \

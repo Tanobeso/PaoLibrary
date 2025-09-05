@@ -14,6 +14,8 @@ public:
 
     QJsonObject toJson() const override;
     QDomElement toXml(QDomDocument &doc) const override;
+
+    virtual void accept(ItemVisitor& visitor) override;
 };
 
 #endif

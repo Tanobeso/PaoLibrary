@@ -19,11 +19,12 @@ private:
     QLineEdit* searchEdit;
 public:
     explicit MainWindow(QWidget *parent = nullptr);
-    explicit MainWindow(LibraryModel* libModel, QWidget *parent = nullptr);
 
 private slots:
-    void onAddItem();
-    void onRemoveItem();
+    void loadFromJson();
+    void loadFromXml();
+    void saveAsJson();
+    void saveAsXml();
 };
 
 #endif // MAINWINDOW_H

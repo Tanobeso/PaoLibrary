@@ -36,9 +36,10 @@ MainWindow::MainWindow(QWidget *parent)
 
 
     setWindowTitle("Libreria Multimediale");    // Setup mainwindow
-    setupMenu();
     auto central = new QWidget(this);
-    auto layout = new QVBoxLayout(central);
+    layout = new QVBoxLayout(central);
+    setupMenu();
+    //mettere QHBoxLayout per i pulsanti a sinistra per filtrare e libreria a destra
     layout->addWidget(searchEdit);
     layout->addWidget(stackedWidget);
     setCentralWidget(central);
@@ -57,7 +58,8 @@ MainWindow::MainWindow(QWidget *parent)
 };
 
 void MainWindow::setupMenu(){
-    QMenu* fileMenu = menuBar()->addMenu("File");
+    QMenuBar *menuBar = new QMenuBar(this);
+    QMenu* fileMenu = menuBar->addMenu("File");
     QAction* saveJsonAction = fileMenu->addAction("Salva come Json");
     QAction* saveXmlAction = fileMenu->addAction("Salva come XML");
     QAction* loadJsonAction = fileMenu->addAction("Carica da Json");
@@ -66,6 +68,7 @@ void MainWindow::setupMenu(){
     connect(loadXmlAction, &QAction::triggered, this, &MainWindow::loadFromXml);
     connect(saveJsonAction, &QAction::triggered, this, &MainWindow::saveAsJson);
     connect(saveXmlAction, &QAction::triggered, this, &MainWindow::saveAsXml);
+    layout->setMenuBar(menuBar);
 }
 
 void MainWindow::loadFromJson(){

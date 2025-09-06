@@ -5,7 +5,7 @@
 #include <QSortFilterProxyModel>
 #include <QListView>
 #include "LibraryFilterModel.h"
-#include "QVBoxLayout"
+#include <QVBoxLayout>
 #include <QStackedWidget>
 
 class MainWindow : public QMainWindow
@@ -13,7 +13,6 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 private:
-    void setupMenu();
     LibraryModel* model = nullptr;
     LibraryTypeFilterModel* typeFilter=nullptr;
     LibrarySearchFilterModel* searchFilter=nullptr;
@@ -21,6 +20,8 @@ private:
     QLineEdit* searchEdit;
     QStackedWidget* stackedWidget;
     QWidget* visitorWidget;
+    QVBoxLayout* layout;
+    void setupMenu();
 public:
     explicit MainWindow(QWidget *parent = nullptr);
 

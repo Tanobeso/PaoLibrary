@@ -18,5 +18,6 @@ public:
     virtual void visitSeries(Series&);
     virtual void visitVideogame(Videogame&);
     void infoSetup(AbstractItem&);
+    void buttonSetup(AbstractItem&);
 };
 #endif // ITEMINFOVISITOR_H

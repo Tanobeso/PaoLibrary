@@ -35,6 +35,18 @@ void ItemInfoVisitor::infoSetup(AbstractItem& item) {
 
 void ItemInfoVisitor::visitArt(Art& art) {
     infoSetup(art);
+    QLabel* authorLabel = new QLabel("Author:");
+    infoLayout->addWidget(authorLabel);
+    QLineEdit* authorEdit = new QLineEdit(QString::fromStdString(art.getAuthor()));
+    infoLayout->addWidget(authorEdit);
+    authorEdit->setReadOnly(true);
+
+    QLabel* sizeLabel = new QLabel("Size:");
+    infoLayout->addWidget(sizeLabel);
+    QLineEdit* sizeEdit = new QLineEdit(QString::fromStdString(art.getSize()));
+    infoLayout->addWidget(sizeEdit);
+    sizeEdit->setReadOnly(true);
+
     QLabel* styleLabel = new QLabel("Style:");
     infoLayout->addWidget(styleLabel);
     QLineEdit* styleEdit = new QLineEdit(QString::fromStdString(art.getStyle()));
@@ -43,6 +55,19 @@ void ItemInfoVisitor::visitArt(Art& art) {
 }
 
 void ItemInfoVisitor::visitBook(Book& book) {
+
+    QLabel* authorLabel = new QLabel("Author:");
+    infoLayout->addWidget(authorLabel);
+    QLineEdit* authorEdit = new QLineEdit(QString::fromStdString(book.getAuthor()));
+    infoLayout->addWidget(authorEdit);
+    authorEdit->setReadOnly(true);
+
+    QLabel* sizeLabel = new QLabel("Size:");
+    infoLayout->addWidget(sizeLabel);
+    QLineEdit* sizeEdit = new QLineEdit(QString::fromStdString(book.getSize()));
+    infoLayout->addWidget(sizeEdit);
+    sizeEdit->setReadOnly(true);
+
     infoSetup(book);
     QLabel* publisherLabel = new QLabel("Publisher:");
     infoLayout->addWidget(publisherLabel);
@@ -65,6 +90,31 @@ void ItemInfoVisitor::visitBook(Book& book) {
 
 void ItemInfoVisitor::visitMovie(Movie& movie) {
     infoSetup(movie);
+
+    QLabel* publisherLabel = new QLabel("Publisher:");
+    infoLayout->addWidget(publisherLabel);
+    QLineEdit* publisherEdit = new QLineEdit(QString::fromStdString(movie.getPublisher()));
+    infoLayout->addWidget(publisherEdit);
+    publisherEdit->setReadOnly(true);
+
+    QLabel* directorLabel = new QLabel("Director:");
+    infoLayout->addWidget(directorLabel);
+    QLineEdit* directorEdit = new QLineEdit(QString::fromStdString(movie.getDirector()));
+    infoLayout->addWidget(directorEdit);
+    directorEdit->setReadOnly(true);
+
+    QLabel* castLabel = new QLabel("Cast:");
+    infoLayout->addWidget(castLabel);
+    QLineEdit* castEdit = new QLineEdit(QString::fromStdString(movie.getCast()));
+    infoLayout->addWidget(castEdit);
+    castEdit->setReadOnly(true);
+
+    QLabel* genreLabel = new QLabel("Genre:");
+    infoLayout->addWidget(genreLabel);
+    QLineEdit* genreEdit = new QLineEdit(QString::fromStdString(movie.getGenre()));
+    infoLayout->addWidget(genreEdit);
+    genreEdit->setReadOnly(true);
+
     QLabel* minutesLabel = new QLabel("Length:");
     infoLayout->addWidget(minutesLabel);
     QLineEdit* minutesEdit = new QLineEdit(QString::number(movie.getLength()));
@@ -75,6 +125,31 @@ void ItemInfoVisitor::visitMovie(Movie& movie) {
 
 void ItemInfoVisitor::visitSeries(Series& series) {
     infoSetup(series);
+
+    QLabel* publisherLabel = new QLabel("Publisher:");
+    infoLayout->addWidget(publisherLabel);
+    QLineEdit* publisherEdit = new QLineEdit(QString::fromStdString(series.getPublisher()));
+    infoLayout->addWidget(publisherEdit);
+    publisherEdit->setReadOnly(true);
+
+    QLabel* directorLabel = new QLabel("Director:");
+    infoLayout->addWidget(directorLabel);
+    QLineEdit* directorEdit = new QLineEdit(QString::fromStdString(series.getDirector()));
+    infoLayout->addWidget(directorEdit);
+    directorEdit->setReadOnly(true);
+
+    QLabel* castLabel = new QLabel("Cast:");
+    infoLayout->addWidget(castLabel);
+    QLineEdit* castEdit = new QLineEdit(QString::fromStdString(series.getCast()));
+    infoLayout->addWidget(castEdit);
+    castEdit->setReadOnly(true);
+
+    QLabel* genreLabel = new QLabel("Genre:");
+    infoLayout->addWidget(genreLabel);
+    QLineEdit* genreEdit = new QLineEdit(QString::fromStdString(series.getGenre()));
+    infoLayout->addWidget(genreEdit);
+    genreEdit->setReadOnly(true);
+
     QLabel* seasonsLabel = new QLabel("Seasons:");
     infoLayout->addWidget(seasonsLabel);
     QLineEdit* seasonsEdit = new QLineEdit(QString::number(series.getSeasons()));
@@ -93,6 +168,19 @@ void ItemInfoVisitor::visitSeries(Series& series) {
 
 void ItemInfoVisitor::visitVideogame(Videogame& videogame) {
     infoSetup(videogame);
+
+    QLabel* publisherLabel = new QLabel("Publisher:");
+    infoLayout->addWidget(publisherLabel);
+    QLineEdit* publisherEdit = new QLineEdit(QString::fromStdString(videogame.getPublisher()));
+    infoLayout->addWidget(publisherEdit);
+    publisherEdit->setReadOnly(true);
+
+    QLabel* genreLabel = new QLabel("Genre:");
+    infoLayout->addWidget(genreLabel);
+    QLineEdit* genreEdit = new QLineEdit(QString::fromStdString(videogame.getGenre()));
+    infoLayout->addWidget(genreEdit);
+    genreEdit->setReadOnly(true);
+
     QLabel* developerLabel = new QLabel("Developer:");
     infoLayout->addWidget(developerLabel);
     QLineEdit* developerEdit = new QLineEdit(QString::fromStdString(videogame.getDeveloper()));

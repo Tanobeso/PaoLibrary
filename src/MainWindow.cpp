@@ -21,7 +21,8 @@ MainWindow::MainWindow(QWidget *parent)
     view(new QListView(this)),
     searchEdit(new QLineEdit(this)),
     stackedWidget(new QStackedWidget(this)),
-    visitorWidget(new QWidget(this))
+    visitorWidget(new QWidget(this)),
+    filterLayout(new QVBoxLayout())
 {
     typeFilter->setSourceModel(model);              // Filtri tipo e ricerca a cascata
     searchFilter->setSourceModel(typeFilter);
@@ -39,9 +40,16 @@ MainWindow::MainWindow(QWidget *parent)
     auto central = new QWidget(this);
     layout = new QVBoxLayout(central);
     setupMenu();
-    //mettere QHBoxLayout per i pulsanti a sinistra per filtrare e libreria a destra
-    layout->addWidget(searchEdit);
-    layout->addWidget(stackedWidget);
+
+    auto centralLayout = new QHBoxLayout();
+    layout->addLayout(centralLayout);
+    auto libraryLayout = new QVBoxLayout();
+    setupFilters();
+    centralLayout->addLayout(filterLayout);
+    centralLayout->addLayout(libraryLayout);
+
+    libraryLayout->addWidget(searchEdit);
+    libraryLayout->addWidget(stackedWidget);
     setCentralWidget(central);
     stackedWidget->addWidget(view);
 
@@ -69,6 +77,40 @@ void MainWindow::setupMenu(){
     connect(saveJsonAction, &QAction::triggered, this, &MainWindow::saveAsJson);
     connect(saveXmlAction, &QAction::triggered, this, &MainWindow::saveAsXml);
     layout->setMenuBar(menuBar);
+}
+
+void MainWindow::setupFilters(){
+    QPushButton* btnAll = new QPushButton("All");
+    filterLayout->addWidget(btnAll);
+    connect(btnAll, &QPushButton::clicked, this,[=](){
+        setType("");
+    });
+    QPushButton* btnArt = new QPushButton("Art");
+    filterLayout->addWidget(btnArt);
+    connect(btnArt, &QPushButton::clicked, this,[=](){
+        setType("Art");
+    });
+    QPushButton* btnBook = new QPushButton("Books");
+    filterLayout->addWidget(btnBook);
+    connect(btnBook, &QPushButton::clicked, this,[=](){
+        setType("Book");
+    });
+    QPushButton* btnMovie = new QPushButton("Movies");
+    filterLayout->addWidget(btnMovie);
+    connect(btnMovie, &QPushButton::clicked, this,[=](){
+        setType("Movie");
+    });
+    QPushButton* btnSeries = new QPushButton("Series");
+    filterLayout->addWidget(btnSeries);
+    connect(btnSeries, &QPushButton::clicked, this,[=](){
+        setType("Series");
+    });
+    QPushButton* btnVideogame = new QPushButton("Videogames");
+    filterLayout->addWidget(btnVideogame);
+    connect(btnVideogame, &QPushButton::clicked, this,[=](){
+        setType("Videogame");
+    });
+    filterLayout->addStretch();
 }
 
 void MainWindow::loadFromJson(){
@@ -201,4 +243,8 @@ void MainWindow::itemClicked(const QModelIndex& index){
         stackedWidget->addWidget(visitorWidget);
         stackedWidget->setCurrentIndex(1);
     }
+}
+
+void MainWindow::setType(const string& filter){
+    typeFilter->setTypeFilter(QString::fromStdString(filter));
 }

@@ -6,7 +6,7 @@
 #include "../headers/Book.h"
 #include "../headers/Movie.h"
 #include "../headers/Series.h"
-#include "../headers/Video.h"
+#include "../headers/Videogame.h"
 
 
 LibraryModel::LibraryModel(QObject* parent) : QAbstractListModel(parent){};
@@ -49,8 +49,8 @@ QVariant LibraryModel::data(const QModelIndex& index, int role) const{
             return "Movie";
         if (dynamic_cast<Series*>(const_cast<AbstractItem*>(item.get())))
             return "Series";
-        if (dynamic_cast<Video*>(const_cast<AbstractItem*>(item.get())))
-            return "Video";
+        if (dynamic_cast<Videogame*>(const_cast<AbstractItem*>(item.get())))
+            return "Videogame";
 
     case ReturnVariantRole:
         return QVariant::fromValue(item.get());

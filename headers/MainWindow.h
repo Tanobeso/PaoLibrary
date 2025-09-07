@@ -21,7 +21,9 @@ private:
     QStackedWidget* stackedWidget;
     QWidget* visitorWidget;
     QVBoxLayout* layout;
+    QVBoxLayout* filterLayout;
     void setupMenu();
+    void setupFilters();
 public:
     explicit MainWindow(QWidget *parent = nullptr);
 
@@ -32,6 +34,7 @@ private slots:
     void saveAsXml();
     void saveShortcut();
     void itemClicked(const QModelIndex&);
+    void setType(const string&);
 };
 
 #endif // MAINWINDOW_H

@@ -6,12 +6,15 @@
 #include <QLabel>
 #include "../headers/ItemVisitor.h"
 
-class ItemInfoVisitor: public ItemVisitor{
+class ItemInfoVisitor: public QObject, public ItemVisitor{
+    Q_OBJECT
 private:
     QWidget* infoWidget;
     QVBoxLayout* infoLayout;
 public:
-    QWidget* getWidget();
+    explicit ItemInfoVisitor(QObject* = nullptr);
+    ~ItemInfoVisitor();
+    QWidget* getWidget() const;
     virtual void visitArt(Art&);
     virtual void visitBook(Book&);
     virtual void visitMovie(Movie&);
@@ -19,5 +22,9 @@ public:
     virtual void visitVideogame(Videogame&);
     void infoSetup(AbstractItem&);
     void buttonSetup(AbstractItem&);
+private slots:
+    void onBackHome();
+signals:
+    void home();
 };
 #endif // ITEMINFOVISITOR_H

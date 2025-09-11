@@ -1,7 +1,6 @@
 #include "../headers/MainWindow.h"
 #include "../headers/JsonManager.h"
 #include "../headers/XmlManager.h"
-#include "../headers/ItemInfoVisitor.h"
 #include <QAction>
 #include <QDebug>
 #include <QLayout>
@@ -21,7 +20,6 @@ MainWindow::MainWindow(QWidget *parent)
     view(new QListView(this)),
     searchEdit(new QLineEdit(this)),
     stackedWidget(new QStackedWidget(this)),
-    visitorWidget(new QWidget(this)),
     filterLayout(new QVBoxLayout())
 {
     typeFilter->setSourceModel(model);              // Filtri tipo e ricerca a cascata
@@ -235,16 +233,19 @@ void MainWindow::saveShortcut(){
 
 void MainWindow::itemClicked(const QModelIndex& index){
     AbstractItem* item = index.data(Qt::UserRole+3).value<AbstractItem*>();
+    infoVisitor = new ItemInfoVisitor(this);
+    connect(infoVisitor, &ItemInfoVisitor::home, this, &MainWindow::onBackHome);
+    item->accept(*infoVisitor);
+    QWidget* infoWidget = infoVisitor->getWidget();
+    stackedWidget->addWidget(infoWidget);
+    stackedWidget->setCurrentWidget(infoWidget);
 
-    if (item) {
-        ItemInfoVisitor visitor;
-        item->accept(visitor);
-        visitorWidget = visitor.getWidget();
-        stackedWidget->addWidget(visitorWidget);
-        stackedWidget->setCurrentIndex(1);
-    }
 }
 
 void MainWindow::setType(const string& filter){
     typeFilter->setTypeFilter(QString::fromStdString(filter));
+}
+
+void MainWindow::onBackHome(){
+    stackedWidget->setCurrentIndex(stackedWidget->indexOf(view));
 }

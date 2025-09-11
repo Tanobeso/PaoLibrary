@@ -7,6 +7,7 @@
 #include "LibraryFilterModel.h"
 #include <QVBoxLayout>
 #include <QStackedWidget>
+#include "ItemInfoVisitor.h"
 
 class MainWindow : public QMainWindow
 {
@@ -19,7 +20,7 @@ private:
     QListView* view = nullptr;
     QLineEdit* searchEdit;
     QStackedWidget* stackedWidget;
-    QWidget* visitorWidget;
+    ItemInfoVisitor* infoVisitor;
     QVBoxLayout* layout;
     QVBoxLayout* filterLayout;
     void setupMenu();
@@ -35,6 +36,7 @@ private slots:
     void saveShortcut();
     void itemClicked(const QModelIndex&);
     void setType(const string&);
+    void onBackHome();
 };
 
 #endif // MAINWINDOW_H

@@ -6,15 +6,22 @@
 #include "../headers/Videogame.h"
 #include <QLineEdit>
 #include <QValidator>
-
-QWidget* ItemInfoVisitor::getWidget() {
+#include <QShortcut>
+ItemInfoVisitor::ItemInfoVisitor(QObject* parent) : QObject(parent) {
+    infoWidget = new QWidget();
+    infoLayout = new QVBoxLayout(infoWidget);
+    infoWidget->setLayout(infoLayout);
+    QShortcut* escShortcut = new QShortcut(QKeySequence(Qt::Key_Escape), infoWidget);
+    connect(escShortcut, &QShortcut::activated, this, &ItemInfoVisitor::home);
+};
+ItemInfoVisitor::~ItemInfoVisitor() {
+    delete infoWidget;
+}
+QWidget* ItemInfoVisitor::getWidget() const{
     return infoWidget;
 }
 
 void ItemInfoVisitor::infoSetup(AbstractItem& item) {
-    infoWidget = new QWidget();
-    infoLayout = new QVBoxLayout(infoWidget);
-
     QLineEdit* titleEdit = new QLineEdit(QString::fromStdString(item.getTitle()));
     infoLayout->addWidget(titleEdit);
     titleEdit->setReadOnly(true);
@@ -55,7 +62,7 @@ void ItemInfoVisitor::visitArt(Art& art) {
 }
 
 void ItemInfoVisitor::visitBook(Book& book) {
-
+    infoSetup(book);
     QLabel* authorLabel = new QLabel("Author:");
     infoLayout->addWidget(authorLabel);
     QLineEdit* authorEdit = new QLineEdit(QString::fromStdString(book.getAuthor()));
@@ -68,7 +75,7 @@ void ItemInfoVisitor::visitBook(Book& book) {
     infoLayout->addWidget(sizeEdit);
     sizeEdit->setReadOnly(true);
 
-    infoSetup(book);
+
     QLabel* publisherLabel = new QLabel("Publisher:");
     infoLayout->addWidget(publisherLabel);
     QLineEdit* publisherEdit = new QLineEdit(QString::fromStdString(book.getPublisher()));
@@ -189,5 +196,16 @@ void ItemInfoVisitor::visitVideogame(Videogame& videogame) {
 }
 
 void buttonSetup(AbstractItem&){
-    //aggiungere shortcut per uscire dalla pagina
+}
+void ItemInfoVisitor::onBackHome() {
+    if (QLayout* layout = infoWidget->layout()) {
+        QLayoutItem* item;
+        while ((item = layout->takeAt(0)) != nullptr) {
+            if (item->widget())
+                delete item->widget();
+            delete item;
+        }
+        delete layout;
+    }
+    emit home();
 }

@@ -7,6 +7,8 @@
 #include <QLineEdit>
 #include <QValidator>
 #include <QShortcut>
+#include <QTextEdit>
+#include <QPushButton>
 ItemInfoVisitor::ItemInfoVisitor(QObject* parent) : QObject(parent) {
     infoWidget = new QWidget();
     layout = new QVBoxLayout(infoWidget);
@@ -48,105 +50,125 @@ void ItemInfoVisitor::infoSetup(AbstractItem& item) {
     itemLayout->addWidget(vLine);
     itemLayout->addLayout(infoLayout);
 
+    QLabel* titleLabel = new QLabel("Title:");
+    infoLayout->addWidget(titleLabel);
     QLineEdit* titleEdit = new QLineEdit(QString::fromStdString(item.getTitle()));
     infoLayout->addWidget(titleEdit);
     titleEdit->setReadOnly(true);
+    editList.append(titleEdit);
 
     QLabel* descriptionLabel = new QLabel("Description:");
     infoLayout->addWidget(descriptionLabel);
-    QLineEdit* descriptionEdit = new QLineEdit(QString::fromStdString(item.getDescription()));
+    QTextEdit* descriptionEdit = new QTextEdit(QString::fromStdString(item.getDescription()));
     infoLayout->addWidget(descriptionEdit);
     descriptionEdit->setReadOnly(true);
+    editList.append(descriptionEdit);
 
     QLabel* yearLabel = new QLabel("Year:");
     infoLayout->addWidget(yearLabel);
-    QLineEdit* yearEdit = new QLineEdit(QString::number(item.getYear()));
+    QLineEdit* yearEdit = new QLineEdit(QString::number(item.getYear()));       //VOLENDO QSPINBOX
     infoLayout->addWidget(yearEdit);
     yearEdit->setReadOnly(true);
     yearEdit->setValidator(new QIntValidator(0, 2500));
+    editList.append(yearEdit);
 }
 
 void ItemInfoVisitor::visitArt(Art& art) {
     infoSetup(art);
+    buttonSetup();
     QLabel* authorLabel = new QLabel("Author:");
     infoLayout->addWidget(authorLabel);
     QLineEdit* authorEdit = new QLineEdit(QString::fromStdString(art.getAuthor()));
     infoLayout->addWidget(authorEdit);
     authorEdit->setReadOnly(true);
+    editList.append(authorEdit);
 
     QLabel* sizeLabel = new QLabel("Size:");
     infoLayout->addWidget(sizeLabel);
     QLineEdit* sizeEdit = new QLineEdit(QString::fromStdString(art.getSize()));
     infoLayout->addWidget(sizeEdit);
     sizeEdit->setReadOnly(true);
+    editList.append(sizeEdit);
 
     QLabel* styleLabel = new QLabel("Style:");
     infoLayout->addWidget(styleLabel);
     QLineEdit* styleEdit = new QLineEdit(QString::fromStdString(art.getStyle()));
     infoLayout->addWidget(styleEdit);
     styleEdit->setReadOnly(true);
+    editList.append(styleEdit);
 }
 
 void ItemInfoVisitor::visitBook(Book& book) {
     infoSetup(book);
+    buttonSetup();
     QLabel* authorLabel = new QLabel("Author:");
     infoLayout->addWidget(authorLabel);
     QLineEdit* authorEdit = new QLineEdit(QString::fromStdString(book.getAuthor()));
     infoLayout->addWidget(authorEdit);
     authorEdit->setReadOnly(true);
+    editList.append(authorEdit);
 
     QLabel* sizeLabel = new QLabel("Size:");
     infoLayout->addWidget(sizeLabel);
     QLineEdit* sizeEdit = new QLineEdit(QString::fromStdString(book.getSize()));
     infoLayout->addWidget(sizeEdit);
     sizeEdit->setReadOnly(true);
+    editList.append(sizeEdit);
 
 
     QLabel* publisherLabel = new QLabel("Publisher:");
     infoLayout->addWidget(publisherLabel);
     QLineEdit* publisherEdit = new QLineEdit(QString::fromStdString(book.getPublisher()));
     infoLayout->addWidget(publisherEdit);
-    publisherEdit->setReadOnly(true);;
+    publisherEdit->setReadOnly(true);
+    editList.append(publisherEdit);
 
     QLabel* genreLabel = new QLabel("Genre:");
     infoLayout->addWidget(genreLabel);
     QLineEdit* genreEdit = new QLineEdit(QString::fromStdString(book.getGenre()));
     infoLayout->addWidget(genreEdit);
     genreEdit->setReadOnly(true);
+    editList.append(genreEdit);
 
     QLabel* editionLabel = new QLabel("Edition:");
     infoLayout->addWidget(editionLabel);
     QLineEdit* editionEdit = new QLineEdit(QString::fromStdString(book.getEdition()));
     infoLayout->addWidget(editionEdit);
     editionEdit->setReadOnly(true);
+    editList.append(editionEdit);
 }
 
 void ItemInfoVisitor::visitMovie(Movie& movie) {
     infoSetup(movie);
+    buttonSetup();
 
     QLabel* publisherLabel = new QLabel("Publisher:");
     infoLayout->addWidget(publisherLabel);
     QLineEdit* publisherEdit = new QLineEdit(QString::fromStdString(movie.getPublisher()));
     infoLayout->addWidget(publisherEdit);
     publisherEdit->setReadOnly(true);
+    editList.append(publisherEdit);
 
     QLabel* directorLabel = new QLabel("Director:");
     infoLayout->addWidget(directorLabel);
     QLineEdit* directorEdit = new QLineEdit(QString::fromStdString(movie.getDirector()));
     infoLayout->addWidget(directorEdit);
     directorEdit->setReadOnly(true);
+    editList.append(directorEdit);
 
     QLabel* castLabel = new QLabel("Cast:");
     infoLayout->addWidget(castLabel);
     QLineEdit* castEdit = new QLineEdit(QString::fromStdString(movie.getCast()));
     infoLayout->addWidget(castEdit);
     castEdit->setReadOnly(true);
+    editList.append(castEdit);
 
     QLabel* genreLabel = new QLabel("Genre:");
     infoLayout->addWidget(genreLabel);
     QLineEdit* genreEdit = new QLineEdit(QString::fromStdString(movie.getGenre()));
     infoLayout->addWidget(genreEdit);
     genreEdit->setReadOnly(true);
+    editList.append(genreEdit);
 
     QLabel* minutesLabel = new QLabel("Length:");
     infoLayout->addWidget(minutesLabel);
@@ -154,34 +176,40 @@ void ItemInfoVisitor::visitMovie(Movie& movie) {
     infoLayout->addWidget(minutesEdit);
     minutesEdit->setReadOnly(true);
     minutesEdit->setValidator(new QIntValidator(0, 600));
+    editList.append(minutesEdit);
 }
 
 void ItemInfoVisitor::visitSeries(Series& series) {
     infoSetup(series);
+    buttonSetup();
 
     QLabel* publisherLabel = new QLabel("Publisher:");
     infoLayout->addWidget(publisherLabel);
     QLineEdit* publisherEdit = new QLineEdit(QString::fromStdString(series.getPublisher()));
     infoLayout->addWidget(publisherEdit);
     publisherEdit->setReadOnly(true);
+    editList.append(publisherEdit);
 
     QLabel* directorLabel = new QLabel("Director:");
     infoLayout->addWidget(directorLabel);
     QLineEdit* directorEdit = new QLineEdit(QString::fromStdString(series.getDirector()));
     infoLayout->addWidget(directorEdit);
     directorEdit->setReadOnly(true);
+    editList.append(directorEdit);
 
     QLabel* castLabel = new QLabel("Cast:");
     infoLayout->addWidget(castLabel);
     QLineEdit* castEdit = new QLineEdit(QString::fromStdString(series.getCast()));
     infoLayout->addWidget(castEdit);
     castEdit->setReadOnly(true);
+    editList.append(castEdit);
 
     QLabel* genreLabel = new QLabel("Genre:");
     infoLayout->addWidget(genreLabel);
     QLineEdit* genreEdit = new QLineEdit(QString::fromStdString(series.getGenre()));
     infoLayout->addWidget(genreEdit);
     genreEdit->setReadOnly(true);
+    editList.append(genreEdit);
 
     QLabel* seasonsLabel = new QLabel("Seasons:");
     infoLayout->addWidget(seasonsLabel);
@@ -189,6 +217,7 @@ void ItemInfoVisitor::visitSeries(Series& series) {
     infoLayout->addWidget(seasonsEdit);
     seasonsEdit->setReadOnly(true);
     seasonsEdit->setValidator(new QIntValidator(0, 100));
+    editList.append(seasonsEdit);
 
     QLabel* episodesLabel = new QLabel("Episodes:");
     infoLayout->addWidget(episodesLabel);
@@ -196,33 +225,70 @@ void ItemInfoVisitor::visitSeries(Series& series) {
     infoLayout->addWidget(episodesEdit);
     episodesEdit->setReadOnly(true);
     episodesEdit->setValidator(new QIntValidator(0, 10000));
+    editList.append(episodesEdit);
 
 }
 
 void ItemInfoVisitor::visitVideogame(Videogame& videogame) {
     infoSetup(videogame);
+    buttonSetup();
 
     QLabel* publisherLabel = new QLabel("Publisher:");
     infoLayout->addWidget(publisherLabel);
     QLineEdit* publisherEdit = new QLineEdit(QString::fromStdString(videogame.getPublisher()));
     infoLayout->addWidget(publisherEdit);
     publisherEdit->setReadOnly(true);
+    editList.append(publisherEdit);
 
     QLabel* genreLabel = new QLabel("Genre:");
     infoLayout->addWidget(genreLabel);
     QLineEdit* genreEdit = new QLineEdit(QString::fromStdString(videogame.getGenre()));
     infoLayout->addWidget(genreEdit);
     genreEdit->setReadOnly(true);
+    editList.append(genreEdit);
 
     QLabel* developerLabel = new QLabel("Developer:");
     infoLayout->addWidget(developerLabel);
     QLineEdit* developerEdit = new QLineEdit(QString::fromStdString(videogame.getDeveloper()));
     infoLayout->addWidget(developerEdit);
     developerEdit->setReadOnly(true);
+    editList.append(developerEdit);
 }
 
-void buttonSetup(AbstractItem&){
+void ItemInfoVisitor::buttonSetup(){
+    QHBoxLayout* buttonLayout = new QHBoxLayout();
+    QPushButton* btnEdit = new QPushButton("Edit");
+    QPushButton* btnCancel = new QPushButton("Cancel");
+    btnCancel->setEnabled(false);
+    QPushButton* btnSave = new QPushButton("Save");
+    btnSave->setEnabled(false);
+    QPushButton* btnBack = new QPushButton("Back");
+
+    buttonLayout->addStretch();
+    layout->addLayout(buttonLayout);
+    buttonLayout->addWidget(btnSave);
+    buttonLayout->addWidget(btnCancel);
+    buttonLayout->addWidget(btnEdit);
+    buttonLayout->addWidget(btnBack);
+
+    connect(btnBack, &QPushButton::clicked, this, &ItemInfoVisitor::onBackHome);
+    connect(btnEdit, &QPushButton::clicked, this, [btnSave, btnCancel, btnEdit]() {
+        btnSave->setEnabled(true);
+        btnCancel->setEnabled(true);
+        btnEdit->setEnabled(false);
+    });
+    connect(btnSave, &QPushButton::clicked, this, [btnEdit, btnCancel, btnSave]() {
+        btnEdit->setEnabled(true);
+        btnCancel->setEnabled(false);
+        btnSave->setEnabled(false);
+    });
+    connect(btnCancel, &QPushButton::clicked, this, [btnSave, btnEdit, btnCancel]() {
+        btnSave->setEnabled(false);
+        btnEdit->setEnabled(true);
+        btnCancel->setEnabled(false);
+    });
 }
+
 void ItemInfoVisitor::onBackHome() {
     if (QLayout* layout = infoWidget->layout()) {
         QLayoutItem* item;

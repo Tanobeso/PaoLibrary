@@ -15,6 +15,7 @@ private:
     QHBoxLayout* itemLayout;
     QVBoxLayout* infoLayout;
     QPixmap imagePixmap;
+    QList<QWidget*> editList;
 public:
     explicit ItemInfoVisitor(QObject* = nullptr);
     ~ItemInfoVisitor();
@@ -25,9 +26,12 @@ public:
     virtual void visitSeries(Series&);
     virtual void visitVideogame(Videogame&);
     void infoSetup(AbstractItem&);
-    void buttonSetup(AbstractItem&);
+    void buttonSetup();
 private slots:
     void onBackHome();
+    //void onEdit();
+    //void onCancel();
+    //void onSave();
 signals:
     void home();
 };

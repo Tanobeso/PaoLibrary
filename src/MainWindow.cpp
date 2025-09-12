@@ -83,6 +83,10 @@ void MainWindow::setupFilters(){
     connect(btnAll, &QPushButton::clicked, this,[=](){
         setType("");
     });
+    QFrame* hLine = new QFrame();
+    hLine->setFrameShape(QFrame::HLine);
+    hLine->setFrameShadow(QFrame::Sunken);
+    filterLayout->addWidget(hLine);
     QPushButton* btnArt = new QPushButton("Art");
     filterLayout->addWidget(btnArt);
     connect(btnArt, &QPushButton::clicked, this,[=](){

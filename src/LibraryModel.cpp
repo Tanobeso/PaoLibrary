@@ -7,6 +7,7 @@
 #include "../headers/Movie.h"
 #include "../headers/Series.h"
 #include "../headers/Videogame.h"
+#include<QPainter>
 
 
 LibraryModel::LibraryModel(QObject* parent) : QAbstractListModel(parent){};
@@ -35,7 +36,24 @@ QVariant LibraryModel::data(const QModelIndex& index, int role) const{
 
     case Qt::DecorationRole:
     case ImageRole: {
-        return QIcon(QString::fromStdString(item->getImage()));
+        QString path = QString::fromStdString(item->getImage());
+        QPixmap pixmap;
+        if (path.isEmpty() || !pixmap.load(path)){
+            pixmap.load("resources/default.jpg");
+        }
+        // Vari fix per sitemare le dimensioni immagini
+        QSize iconSize(120, 160);
+        QPixmap scaled = pixmap.scaled(iconSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+        QPixmap fixed(iconSize);
+        fixed.fill(Qt::transparent);
+        QPainter painter(&fixed);
+        QPoint center(
+            (iconSize.width() - scaled.width()) / 2,
+            (iconSize.height() - scaled.height()) / 2);
+        painter.drawPixmap(center, scaled);
+        painter.end();
+
+        return QIcon(fixed);
     }
 
     // Filtro per tipo tramite cast per evitare getType come richiesto
@@ -43,14 +61,15 @@ QVariant LibraryModel::data(const QModelIndex& index, int role) const{
     case TypeRole:
         if (dynamic_cast<Art*>(const_cast<AbstractItem*>(item.get())))
             return "Art";
-        if (dynamic_cast<Book*>(const_cast<AbstractItem*>(item.get())))
+        else if (dynamic_cast<Book*>(const_cast<AbstractItem*>(item.get())))
             return "Book";
-        if (dynamic_cast<Movie*>(const_cast<AbstractItem*>(item.get())))
+        else if (dynamic_cast<Movie*>(const_cast<AbstractItem*>(item.get())))
             return "Movie";
-        if (dynamic_cast<Series*>(const_cast<AbstractItem*>(item.get())))
+        else if (dynamic_cast<Series*>(const_cast<AbstractItem*>(item.get())))
             return "Series";
-        if (dynamic_cast<Videogame*>(const_cast<AbstractItem*>(item.get())))
+        else if (dynamic_cast<Videogame*>(const_cast<AbstractItem*>(item.get())))
             return "Videogame";
+        else return QVariant();
 
     case ReturnVariantRole:
         return QVariant::fromValue(item.get());

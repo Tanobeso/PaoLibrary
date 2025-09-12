@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QVBoxLayout>
+#include <QHBoxLayout>
 #include <QLabel>
 #include "../headers/ItemVisitor.h"
 
@@ -10,7 +11,10 @@ class ItemInfoVisitor: public QObject, public ItemVisitor{
     Q_OBJECT
 private:
     QWidget* infoWidget;
+    QVBoxLayout* layout;
+    QHBoxLayout* itemLayout;
     QVBoxLayout* infoLayout;
+    QPixmap imagePixmap;
 public:
     explicit ItemInfoVisitor(QObject* = nullptr);
     ~ItemInfoVisitor();

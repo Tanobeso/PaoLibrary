@@ -9,8 +9,11 @@
 #include <QShortcut>
 ItemInfoVisitor::ItemInfoVisitor(QObject* parent) : QObject(parent) {
     infoWidget = new QWidget();
-    infoLayout = new QVBoxLayout(infoWidget);
-    infoWidget->setLayout(infoLayout);
+    layout = new QVBoxLayout(infoWidget);
+    infoWidget->setLayout(layout);
+    itemLayout = new QHBoxLayout();
+    layout->addLayout(itemLayout);
+    infoLayout = new QVBoxLayout();
     QShortcut* escShortcut = new QShortcut(QKeySequence(Qt::Key_Escape), infoWidget);
     connect(escShortcut, &QShortcut::activated, this, &ItemInfoVisitor::home);
 };
@@ -22,6 +25,29 @@ QWidget* ItemInfoVisitor::getWidget() const{
 }
 
 void ItemInfoVisitor::infoSetup(AbstractItem& item) {
+    QLabel* imageLabel = new QLabel();
+    if (item.getImage().empty()) {
+        imagePixmap.load("resources/default.jpg");
+    }
+    else {
+        imagePixmap.load(QString::fromStdString(item.getImage()));
+    }
+    QPixmap scaledPixmap = imagePixmap.scaled(
+        400, 400,
+        Qt::KeepAspectRatio,
+        Qt::SmoothTransformation
+        );
+    imageLabel->setPixmap(scaledPixmap);
+    imageLabel->setAlignment(Qt::AlignCenter);
+    imageLabel->setFixedSize(scaledPixmap.size());
+    imageLabel->setStyleSheet("border: 1px solid gray;");
+    itemLayout->addWidget(imageLabel);
+    QFrame* vLine = new QFrame();
+    vLine->setFrameShape(QFrame::VLine);
+    vLine->setFrameShadow(QFrame::Sunken);
+    itemLayout->addWidget(vLine);
+    itemLayout->addLayout(infoLayout);
+
     QLineEdit* titleEdit = new QLineEdit(QString::fromStdString(item.getTitle()));
     infoLayout->addWidget(titleEdit);
     titleEdit->setReadOnly(true);

@@ -23,6 +23,17 @@ int LibraryModel::rowCount(const QModelIndex& parent) const{
     return lib.size();
 }
 
+bool LibraryModel::removeRow(int row, const QModelIndex& parent) {
+    if (parent.isValid())
+        return false;
+    if (row < 0 || row >= lib.size())
+        return false;
+    beginRemoveRows(parent, row, row);
+    lib.removeAt(row);
+    endRemoveRows();
+    return true;
+}
+
 QVariant LibraryModel::data(const QModelIndex& index, int role) const{
     if (!index.isValid() || index.row() >= lib.size())
         return QVariant();

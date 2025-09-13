@@ -236,14 +236,17 @@ void MainWindow::saveShortcut(){
 };
 
 void MainWindow::itemClicked(const QModelIndex& index){
+    if (!index.isValid()) return;
+
+    currentIndex = index; //per sapere che elemento eliminare in caso di delete
     AbstractItem* item = index.data(Qt::UserRole+3).value<AbstractItem*>();
     infoVisitor = new ItemInfoVisitor(this);
     connect(infoVisitor, &ItemInfoVisitor::home, this, &MainWindow::onBackHome);
+    connect(infoVisitor, &ItemInfoVisitor::deleteRequest, this, &MainWindow::onDelete);
     item->accept(*infoVisitor);
     QWidget* infoWidget = infoVisitor->getWidget();
     stackedWidget->addWidget(infoWidget);
     stackedWidget->setCurrentWidget(infoWidget);
-
 }
 
 void MainWindow::setType(const string& filter){
@@ -252,4 +255,16 @@ void MainWindow::setType(const string& filter){
 
 void MainWindow::onBackHome(){
     stackedWidget->setCurrentIndex(stackedWidget->indexOf(view));
+}
+
+void MainWindow::onDelete(){
+    if (!currentIndex.isValid()) return;
+
+    QModelIndex proxySourceIndex = searchFilter->mapToSource(currentIndex); //risaliamo al modello originale
+    QModelIndex sourceIndex = typeFilter->mapToSource(proxySourceIndex);
+    LibraryModel* modelCast = qobject_cast<LibraryModel*>(typeFilter->sourceModel());
+    if(!modelCast || !sourceIndex.isValid()) return;
+    modelCast->removeRow(sourceIndex.row(), sourceIndex.parent());
+
+    currentIndex = QModelIndex();
 }

@@ -10,6 +10,7 @@
 #include <QShortcut>
 #include <QTextEdit>
 #include <QPushButton>
+#include <QMessageBox>
 ItemInfoVisitor::ItemInfoVisitor(QObject* parent) : QObject(parent) {
     infoWidget = new QWidget();
     layout = new QVBoxLayout(infoWidget);
@@ -259,6 +260,7 @@ void ItemInfoVisitor::visitVideogame(Videogame& videogame) {
 
 void ItemInfoVisitor::buttonSetup(){
     QHBoxLayout* buttonLayout = new QHBoxLayout();
+    QPushButton* btnDelete = new QPushButton("Remove from library");
     QPushButton* btnEdit = new QPushButton("Edit");
     QPushButton* btnCancel = new QPushButton("Cancel");
     btnCancel->setEnabled(false);
@@ -266,6 +268,7 @@ void ItemInfoVisitor::buttonSetup(){
     btnSave->setEnabled(false);
     QPushButton* btnBack = new QPushButton("Back");
 
+    buttonLayout->addWidget(btnDelete);
     buttonLayout->addStretch();
     layout->addLayout(buttonLayout);
     buttonLayout->addWidget(btnSave);
@@ -273,6 +276,19 @@ void ItemInfoVisitor::buttonSetup(){
     buttonLayout->addWidget(btnEdit);
     buttonLayout->addWidget(btnBack);
 
+    connect(btnDelete, &QPushButton::clicked, this, [this]() {
+        auto result = QMessageBox::question(
+            nullptr,
+            "Removing from library",
+            "Are you sure you want to remove this item?",
+            QMessageBox::Yes | QMessageBox::No
+            );
+
+        if (result == QMessageBox::Yes) {
+            emit deleteRequest();
+            emit home();
+        }
+    });
     connect(btnBack, &QPushButton::clicked, this, &ItemInfoVisitor::onBackHome);
     connect(btnEdit, &QPushButton::clicked, this, [btnSave, btnCancel, btnEdit]() {
         btnSave->setEnabled(true);

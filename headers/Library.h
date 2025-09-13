@@ -14,7 +14,6 @@ public:
     void addItem(std::shared_ptr<AbstractItem>);
     void saveAsJson(const QString&) const;
     void saveAsXml(const QString&) const;
-    //size?
 };
 
 #endif // LIBRARY_H

@@ -36,5 +36,6 @@ private slots:
     void onSave();
 signals:
     void home();
+    void deleteRequest();
 };
 #endif // ITEMINFOVISITOR_H

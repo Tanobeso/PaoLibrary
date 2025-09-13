@@ -23,6 +23,7 @@ private:
     ItemInfoVisitor* infoVisitor;
     QVBoxLayout* layout;
     QVBoxLayout* filterLayout;
+    QModelIndex currentIndex;
     void setupMenu();
     void setupFilters();
 public:
@@ -37,6 +38,7 @@ private slots:
     void itemClicked(const QModelIndex&);
     void setType(const string&);
     void onBackHome();
+    void onDelete();
 };
 
 #endif // MAINWINDOW_H

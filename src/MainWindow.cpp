@@ -21,7 +21,8 @@ MainWindow::MainWindow(QWidget *parent)
     view(new QListView(this)),
     searchEdit(new QLineEdit(this)),
     stackedWidget(new QStackedWidget(this)),
-    filterLayout(new QVBoxLayout())
+    filterLayout(new QVBoxLayout()),
+    central(new QWidget(this))
 {
     typeFilter->setSourceModel(model);              // Filtri tipo e ricerca a cascata
     searchFilter->setSourceModel(typeFilter);
@@ -36,7 +37,6 @@ MainWindow::MainWindow(QWidget *parent)
 
 
     setWindowTitle("Libreria Multimediale");    // Setup mainwindow
-    auto central = new QWidget(this);
     layout = new QVBoxLayout(central);
     setupMenu();
 
@@ -48,9 +48,9 @@ MainWindow::MainWindow(QWidget *parent)
     centralLayout->addLayout(libraryLayout);
 
     libraryLayout->addWidget(searchEdit);
-    libraryLayout->addWidget(stackedWidget);
-    setCentralWidget(central);
-    stackedWidget->addWidget(view);
+    libraryLayout->addWidget(view);
+    setCentralWidget(stackedWidget);
+    stackedWidget->addWidget(central);
 
     connect(searchEdit, &QLineEdit::textChanged, this, [this](const QString &text){
         searchFilter->setTitleFilter(text);
@@ -258,7 +258,7 @@ void MainWindow::setType(const string& filter){
 }
 
 void MainWindow::onBackHome(){
-    stackedWidget->setCurrentIndex(stackedWidget->indexOf(view));
+    stackedWidget->setCurrentIndex(stackedWidget->indexOf(central));
 }
 
 void MainWindow::onDelete(){

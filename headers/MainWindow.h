@@ -24,6 +24,7 @@ private:
     QVBoxLayout* layout;
     QVBoxLayout* filterLayout;
     QModelIndex currentIndex;
+    QWidget* central;
     void setupMenu();
     void setupFilters();
 public:

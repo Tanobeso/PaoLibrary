@@ -6,7 +6,7 @@ class Videogame: public DigitalItem{
 private:
 	string developer;
 public:
-    Videogame(string _title, string _description, unsigned int _year, string _image, string _publ, string _genre, string dev);
+    Videogame(string _title, string _description, unsigned int _year, string _image, string _publisher, string _genre, string developer);
     Videogame()=default;
 
 	string getDeveloper() const;

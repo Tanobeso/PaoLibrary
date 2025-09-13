@@ -24,7 +24,12 @@ SOURCES += \
     src/DigitalItem.cpp \
     src/Movie.cpp \
     src/NewArtForm.cpp \
+    src/NewBookForm.cpp \
     src/NewItemDialog.cpp \
+    src/NewItemForm.cpp \
+    src/NewMovieForm.cpp \
+    src/NewSeriesForm.cpp \
+    src/NewVideogameForm.cpp \
     src/PhysicalItem.cpp \
     src/Series.cpp \
     src/Video.cpp \
@@ -47,8 +52,12 @@ HEADERS += \
     headers/DigitalItem.h \
     headers/Movie.h \
     headers/NewArtForm.h \
+    headers/NewBookForm.h \
     headers/NewItemDialog.h \
     headers/NewItemForm.h \
+    headers/NewMovieForm.h \
+    headers/NewSeriesForm.h \
+    headers/NewVideogameForm.h \
     headers/PhysicalItem.h \
     headers/Series.h \
     headers/Video.h \

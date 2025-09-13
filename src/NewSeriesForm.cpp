@@ -1,19 +1,22 @@
-#include "../headers/NewArtForm.h"
-#include "../headers/Art.h"
+#include "../headers/NewSeriesForm.h"
+#include "../headers/Series.h"
 #include <QPushButton>
 #include <QHBoxLayout>
 #include <QFormLayout>
 #include <QValidator>
 
 
-NewArtForm::NewArtForm(QWidget* parent): NewItemForm(parent){
+NewSeriesForm::NewSeriesForm(QWidget* parent): NewItemForm(parent){
     titleEdit = new QLineEdit();
     descriptionEdit = new QTextEdit();
     yearEdit = new QLineEdit();
     yearEdit->setValidator(new QIntValidator(0, 2500));
-    authorEdit = new QLineEdit();
-    sizeEdit = new QLineEdit();
-    styleEdit = new QLineEdit();
+    publisherEdit = new QLineEdit();
+    genreEdit = new QLineEdit();
+    castEdit = new QLineEdit();
+    directorEdit = new QLineEdit();
+    seasonsEdit = new QLineEdit();
+    episodesEdit = new QLineEdit();
 
     imageEdit = new QLineEdit();
     QPushButton* browseBtn = new QPushButton("Browse...");
@@ -22,7 +25,7 @@ NewArtForm::NewArtForm(QWidget* parent): NewItemForm(parent){
     imagePreview->setFrameShape(QFrame::Box);
     imagePreview->setAlignment(Qt::AlignCenter);
 
-    connect(browseBtn, &QPushButton::clicked, this, &NewArtForm::onBrowse);
+    connect(browseBtn, &QPushButton::clicked, this, &NewSeriesForm::onBrowse);
 
     QHBoxLayout* imageLayout = new QHBoxLayout();
     imageLayout->addWidget(imageEdit);
@@ -32,9 +35,12 @@ NewArtForm::NewArtForm(QWidget* parent): NewItemForm(parent){
     formLayout->addRow("Title:", titleEdit);
     formLayout->addRow("Description:", descriptionEdit);
     formLayout->addRow("Year:", yearEdit);
-    formLayout->addRow("Author:", authorEdit);
-    formLayout->addRow("Size:", sizeEdit);
-    formLayout->addRow("Style:", styleEdit);
+    formLayout->addRow("Publisher:", publisherEdit);
+    formLayout->addRow("Genre:", genreEdit);
+    formLayout->addRow("Cast:", castEdit);
+    formLayout->addRow("Director:", directorEdit);
+    formLayout->addRow("Seasons:", seasonsEdit);
+    formLayout->addRow("Episodes:", episodesEdit);
     formLayout->addRow("Image:", imageLayout);
     formLayout->addRow("Preview:", imagePreview);
 
@@ -44,16 +50,20 @@ NewArtForm::NewArtForm(QWidget* parent): NewItemForm(parent){
 
 };
 
-std::shared_ptr<AbstractItem> NewArtForm::createItem() const {
+std::shared_ptr<AbstractItem> NewSeriesForm::createItem() const {
     if(yearEdit->text()=="")yearEdit->setText("0");
-    return std::make_shared<Art>(
+    if(seasonsEdit->text()=="")seasonsEdit->setText("0");
+    if(episodesEdit->text()=="")episodesEdit->setText("0");
+    return std::make_shared<Series>(
         titleEdit->text().toStdString(),
         descriptionEdit->toPlainText().toStdString(),
         static_cast<unsigned int>(std::stoi(yearEdit->text().toStdString())),
         imageEdit->text().toStdString(),
-        authorEdit->text().toStdString(),
-        sizeEdit->text().toStdString(),
-        styleEdit->text().toStdString()
+        publisherEdit->text().toStdString(),
+        genreEdit->text().toStdString(),
+        castEdit->text().toStdString(),
+        directorEdit->text().toStdString(),
+        static_cast<unsigned int>(std::stoi(seasonsEdit->text().toStdString())),
+        static_cast<unsigned int>(std::stoi(episodesEdit->text().toStdString()))
         );
 }
-

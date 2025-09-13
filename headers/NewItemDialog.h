@@ -4,6 +4,10 @@
 #include <QComboBox>
 #include <QStackedWidget>
 #include "NewArtForm.h"
+#include "NewBookForm.h"
+#include "NewMovieForm.h"
+#include "NewSeriesForm.h"
+#include "NewVideogameForm.h"
 
 class NewItemDialog : public QDialog {
     Q_OBJECT
@@ -19,6 +23,10 @@ private:
     QComboBox* typeCombo;
     QStackedWidget* stackedWidget;
     NewArtForm* artForm;
+    NewBookForm* bookForm;
+    NewMovieForm* movieForm;
+    NewSeriesForm* seriesForm;
+    NewVideogameForm* videogameForm;
 };
 
 #endif // NEWITEMDIALOG_H

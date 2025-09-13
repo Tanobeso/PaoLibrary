@@ -8,15 +8,23 @@ NewItemDialog::NewItemDialog(QWidget* parent) : QDialog(parent) {
     setWindowTitle("New item");
 
     typeCombo = new QComboBox();
-    typeCombo->addItems({"Art"});
+    typeCombo->addItems({"Art", "Book", "Movie", "Series", "Videogame"});
     connect(typeCombo, QOverload<int>::of(&QComboBox::currentIndexChanged),
             this, &NewItemDialog::onTypeChanged);
 
     stackedWidget = new QStackedWidget();
 
     artForm = new NewArtForm();
+    bookForm = new NewBookForm();
+    movieForm = new NewMovieForm();
+    seriesForm = new NewSeriesForm();
+    videogameForm = new NewVideogameForm();
 
     stackedWidget->addWidget(artForm);
+    stackedWidget->addWidget(bookForm);
+    stackedWidget->addWidget(movieForm);
+    stackedWidget->addWidget(seriesForm);
+    stackedWidget->addWidget(videogameForm);
 
     QDialogButtonBox* buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
     buttonBox->button(QDialogButtonBox::Ok)->setText("Create");

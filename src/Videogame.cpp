@@ -1,6 +1,6 @@
 #include "../headers/Videogame.h"
 
-Videogame::Videogame(string _title, string _description, unsigned int _year, string _image, string _publ, string _genre, string _dev) : DigitalItem(_title, _description, _year, _image, _publ, _genre), developer(_dev){
+Videogame::Videogame(string _title, string _description, unsigned int _year, string _image, string _publisher, string _genre, string _developer) : DigitalItem(_title, _description, _year, _image, _publisher, _genre), developer(_developer){
 };
 
 string Videogame::getDeveloper() const{

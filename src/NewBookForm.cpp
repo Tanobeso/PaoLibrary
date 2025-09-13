@@ -1,19 +1,21 @@
-#include "../headers/NewArtForm.h"
-#include "../headers/Art.h"
+#include "../headers/NewBookForm.h"
+#include "../headers/Book.h"
 #include <QPushButton>
 #include <QHBoxLayout>
 #include <QFormLayout>
 #include <QValidator>
 
 
-NewArtForm::NewArtForm(QWidget* parent): NewItemForm(parent){
+NewBookForm::NewBookForm(QWidget* parent): NewItemForm(parent){
     titleEdit = new QLineEdit();
     descriptionEdit = new QTextEdit();
     yearEdit = new QLineEdit();
     yearEdit->setValidator(new QIntValidator(0, 2500));
     authorEdit = new QLineEdit();
     sizeEdit = new QLineEdit();
-    styleEdit = new QLineEdit();
+    publisherEdit = new QLineEdit();
+    genreEdit = new QLineEdit();
+    editionEdit = new QLineEdit();
 
     imageEdit = new QLineEdit();
     QPushButton* browseBtn = new QPushButton("Browse...");
@@ -22,7 +24,7 @@ NewArtForm::NewArtForm(QWidget* parent): NewItemForm(parent){
     imagePreview->setFrameShape(QFrame::Box);
     imagePreview->setAlignment(Qt::AlignCenter);
 
-    connect(browseBtn, &QPushButton::clicked, this, &NewArtForm::onBrowse);
+    connect(browseBtn, &QPushButton::clicked, this, &NewBookForm::onBrowse);
 
     QHBoxLayout* imageLayout = new QHBoxLayout();
     imageLayout->addWidget(imageEdit);
@@ -34,7 +36,9 @@ NewArtForm::NewArtForm(QWidget* parent): NewItemForm(parent){
     formLayout->addRow("Year:", yearEdit);
     formLayout->addRow("Author:", authorEdit);
     formLayout->addRow("Size:", sizeEdit);
-    formLayout->addRow("Style:", styleEdit);
+    formLayout->addRow("Publisher:", publisherEdit);
+    formLayout->addRow("Genre:", genreEdit);
+    formLayout->addRow("Edition:", editionEdit);
     formLayout->addRow("Image:", imageLayout);
     formLayout->addRow("Preview:", imagePreview);
 
@@ -44,16 +48,17 @@ NewArtForm::NewArtForm(QWidget* parent): NewItemForm(parent){
 
 };
 
-std::shared_ptr<AbstractItem> NewArtForm::createItem() const {
+std::shared_ptr<AbstractItem> NewBookForm::createItem() const {
     if(yearEdit->text()=="")yearEdit->setText("0");
-    return std::make_shared<Art>(
+    return std::make_shared<Book>(
         titleEdit->text().toStdString(),
         descriptionEdit->toPlainText().toStdString(),
         static_cast<unsigned int>(std::stoi(yearEdit->text().toStdString())),
         imageEdit->text().toStdString(),
         authorEdit->text().toStdString(),
         sizeEdit->text().toStdString(),
-        styleEdit->text().toStdString()
+        publisherEdit->text().toStdString(),
+        genreEdit->text().toStdString(),
+        editionEdit->text().toStdString()
         );
 }
-

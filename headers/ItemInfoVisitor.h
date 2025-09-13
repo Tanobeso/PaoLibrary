@@ -16,6 +16,8 @@ private:
     QVBoxLayout* infoLayout;
     QPixmap imagePixmap;
     QList<QWidget*> editList;
+    QMap<QWidget*, QString> valoriOriginali;
+    AbstractItem* editItem; //mi serve per salvare modifiche
 public:
     explicit ItemInfoVisitor(QObject* = nullptr);
     ~ItemInfoVisitor();
@@ -29,9 +31,9 @@ public:
     void buttonSetup();
 private slots:
     void onBackHome();
-    //void onEdit();
-    //void onCancel();
-    //void onSave();
+    void onEdit();
+    void onCancel();
+    void onSave();
 signals:
     void home();
 };

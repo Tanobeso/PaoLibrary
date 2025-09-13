@@ -4,6 +4,7 @@
 #include "../headers/Movie.h"
 #include "../headers/Series.h"
 #include "../headers/Videogame.h"
+#include "../headers/ItemEditVisitor.h"
 #include <QLineEdit>
 #include <QValidator>
 #include <QShortcut>
@@ -18,7 +19,7 @@ ItemInfoVisitor::ItemInfoVisitor(QObject* parent) : QObject(parent) {
     infoLayout = new QVBoxLayout();
     QShortcut* escShortcut = new QShortcut(QKeySequence(Qt::Key_Escape), infoWidget);
     connect(escShortcut, &QShortcut::activated, this, &ItemInfoVisitor::home);
-};
+}
 ItemInfoVisitor::~ItemInfoVisitor() {
     delete infoWidget;
 }
@@ -27,6 +28,7 @@ QWidget* ItemInfoVisitor::getWidget() const{
 }
 
 void ItemInfoVisitor::infoSetup(AbstractItem& item) {
+    editItem=&item;
     QLabel* imageLabel = new QLabel();
     if (item.getImage().empty()) {
         imagePixmap.load("resources/default.jpg");
@@ -277,16 +279,19 @@ void ItemInfoVisitor::buttonSetup(){
         btnCancel->setEnabled(true);
         btnEdit->setEnabled(false);
     });
+    connect(btnEdit, &QPushButton::clicked, this, &ItemInfoVisitor::onEdit);
     connect(btnSave, &QPushButton::clicked, this, [btnEdit, btnCancel, btnSave]() {
         btnEdit->setEnabled(true);
         btnCancel->setEnabled(false);
         btnSave->setEnabled(false);
     });
+    connect(btnSave, &QPushButton::clicked, this, &ItemInfoVisitor::onSave);
     connect(btnCancel, &QPushButton::clicked, this, [btnSave, btnEdit, btnCancel]() {
         btnSave->setEnabled(false);
         btnEdit->setEnabled(true);
         btnCancel->setEnabled(false);
     });
+    connect(btnCancel, &QPushButton::clicked, this, &ItemInfoVisitor::onCancel);
 }
 
 void ItemInfoVisitor::onBackHome() {
@@ -301,3 +306,46 @@ void ItemInfoVisitor::onBackHome() {
     }
     emit home();
 }
+
+void ItemInfoVisitor::onEdit(){
+    valoriOriginali.clear();
+    for (auto it = editList.constBegin(); it != editList.constEnd(); ++it) {
+        if (auto lEdit = qobject_cast<QLineEdit*>(*it)) {
+            lEdit->setReadOnly(false);
+            valoriOriginali[lEdit] = lEdit->text();
+        } else if (auto tEdit = qobject_cast<QTextEdit*>(*it)) {
+            tEdit->setReadOnly(false);
+            valoriOriginali[tEdit] = tEdit->toPlainText();
+        }
+    }
+}
+
+void ItemInfoVisitor::onCancel(){
+    for (auto it = valoriOriginali.constBegin(); it != valoriOriginali.constEnd(); ++it) {
+        QWidget* w = it.key();
+        const QString& valore = it.value();
+        if (auto lEdit = qobject_cast<QLineEdit*>(w)) {
+            lEdit->setText(valore);
+            lEdit->setReadOnly(true);
+        } else if (auto tEdit = qobject_cast<QTextEdit*>(w)) {
+            tEdit->setPlainText(valore);
+            tEdit->setReadOnly(true);
+        }
+    }
+}
+
+void ItemInfoVisitor::onSave(){
+    QList<QString> saveList;
+    for (auto it = editList.constBegin(); it != editList.constEnd(); ++it) {
+        if (auto lEdit = qobject_cast<QLineEdit*>(*it)) {
+            lEdit->setReadOnly(true);
+            saveList.append(lEdit->text());
+        } else if (auto tEdit = qobject_cast<QTextEdit*>(*it)) {
+            tEdit->setReadOnly(true);
+            saveList.append(tEdit->toPlainText());
+        }
+    }
+    ItemEditVisitor editVisitor(saveList);
+    editItem->accept(editVisitor);
+}
+//aggiungere signal per segnalare modifica

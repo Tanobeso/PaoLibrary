@@ -1,6 +1,7 @@
 #include "../headers/MainWindow.h"
 #include "../headers/JsonManager.h"
 #include "../headers/XmlManager.h"
+#include "../headers/NewItemDialog.h"
 #include <QAction>
 #include <QDebug>
 #include <QLayout>
@@ -113,6 +114,9 @@ void MainWindow::setupFilters(){
         setType("Videogame");
     });
     filterLayout->addStretch();
+    QPushButton* btnNewItem = new QPushButton("New Item");
+    filterLayout->addWidget(btnNewItem);
+    connect(btnNewItem, &QPushButton::clicked, this, &MainWindow::onNewItem);
 }
 
 void MainWindow::loadFromJson(){
@@ -267,4 +271,14 @@ void MainWindow::onDelete(){
     modelCast->removeRow(sourceIndex.row(), sourceIndex.parent());
 
     currentIndex = QModelIndex();
+}
+
+void MainWindow::onNewItem() {
+    NewItemDialog dialog(this);
+    if (dialog.exec() == QDialog::Accepted) {
+        std::shared_ptr<AbstractItem> item = dialog.createItem();
+        if (item) {
+            model->addRow(item);
+        }
+    }
 }

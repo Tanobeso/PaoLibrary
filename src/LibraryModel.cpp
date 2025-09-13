@@ -34,6 +34,14 @@ bool LibraryModel::removeRow(int row, const QModelIndex& parent) {
     return true;
 }
 
+bool LibraryModel::addRow(std::shared_ptr<AbstractItem> item) {
+    int row = lib.size();
+    beginInsertRows(QModelIndex(), row, row);
+    lib.append(item);
+    endInsertRows();
+    return true;
+}
+
 QVariant LibraryModel::data(const QModelIndex& index, int role) const{
     if (!index.isValid() || index.row() >= lib.size())
         return QVariant();

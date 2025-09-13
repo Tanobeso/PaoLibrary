@@ -20,6 +20,7 @@ public:
     int rowCount(const QModelIndex& = QModelIndex()) const override;
     QVariant data(const QModelIndex&,int) const override;
     bool removeRow(int row, const QModelIndex& parent = QModelIndex());
+    bool addRow(std::shared_ptr<AbstractItem> item);
 
 };
 #endif

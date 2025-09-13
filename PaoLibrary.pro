@@ -23,6 +23,8 @@ SOURCES += \
     src/Book.cpp \
     src/DigitalItem.cpp \
     src/Movie.cpp \
+    src/NewArtForm.cpp \
+    src/NewItemDialog.cpp \
     src/PhysicalItem.cpp \
     src/Series.cpp \
     src/Video.cpp \
@@ -44,6 +46,9 @@ HEADERS += \
     headers/Book.h \
     headers/DigitalItem.h \
     headers/Movie.h \
+    headers/NewArtForm.h \
+    headers/NewItemDialog.h \
+    headers/NewItemForm.h \
     headers/PhysicalItem.h \
     headers/Series.h \
     headers/Video.h \

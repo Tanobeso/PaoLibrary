@@ -39,6 +39,7 @@ private slots:
     void setType(const string&);
     void onBackHome();
     void onDelete();
+    void onNewItem();
 };
 
 #endif // MAINWINDOW_H

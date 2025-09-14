@@ -11,9 +11,10 @@
 #include <QMessageBox>
 #include <QPushButton>
 #include <QShortcut>
+#include <QCloseEvent>
 
 
-MainWindow::MainWindow(QWidget *parent)
+MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent),
     model(new LibraryModel(this)),
     typeFilter(new LibraryTypeFilterModel(this)),
@@ -22,7 +23,8 @@ MainWindow::MainWindow(QWidget *parent)
     searchEdit(new QLineEdit(this)),
     stackedWidget(new QStackedWidget(this)),
     filterLayout(new QVBoxLayout()),
-    central(new QWidget(this))
+    central(new QWidget(this)),
+    unsavedChanges(false)
 {
     typeFilter->setSourceModel(model);              // Filtri tipo e ricerca a cascata
     searchFilter->setSourceModel(typeFilter);
@@ -176,6 +178,7 @@ void MainWindow::saveAsJson(){
 #endif
 
         model->saveAsJson(fileName);
+        unsavedChanges=false;
     }
 };
 
@@ -211,6 +214,7 @@ void MainWindow::saveAsXml(){
 #endif
 
         model->saveAsXml(fileName);
+        unsavedChanges=false;
     }
 };
 
@@ -237,6 +241,7 @@ void MainWindow::saveShortcut(){
     });
 
     dialog.exec();
+    unsavedChanges=false;
 };
 
 void MainWindow::itemClicked(const QModelIndex& index){
@@ -247,6 +252,7 @@ void MainWindow::itemClicked(const QModelIndex& index){
     infoVisitor = new ItemInfoVisitor(this);
     connect(infoVisitor, &ItemInfoVisitor::home, this, &MainWindow::onBackHome);
     connect(infoVisitor, &ItemInfoVisitor::deleteRequest, this, &MainWindow::onDelete);
+    connect(infoVisitor, &ItemInfoVisitor::itemModified,this, &MainWindow::onItemModified);
     item->accept(*infoVisitor);
     QWidget* infoWidget = infoVisitor->getWidget();
     stackedWidget->addWidget(infoWidget);
@@ -280,5 +286,26 @@ void MainWindow::onNewItem() {
         if (item) {
             model->addRow(item);
         }
+    }
+}
+
+void MainWindow::onItemModified(){
+    unsavedChanges=true;
+}
+
+void MainWindow::closeEvent(QCloseEvent* event) {
+    if (unsavedChanges) {
+        QMessageBox::StandardButton reply = QMessageBox::warning(
+            this, "Modifiche non salvate",
+            "Hai delle modifiche non salvate. Vuoi uscire comunque?",
+            QMessageBox::Yes | QMessageBox::No);
+
+        if (reply == QMessageBox::Yes) {
+            event->accept();
+        } else {
+            event->ignore();
+        }
+    } else {
+        event->accept();
     }
 }

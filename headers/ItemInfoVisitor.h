@@ -42,5 +42,6 @@ private slots:
 signals:
     void home();
     void deleteRequest();
+    void itemModified();
 };
 #endif // ITEMINFOVISITOR_H

@@ -400,5 +400,6 @@ void ItemInfoVisitor::onSave(){
     saveList.append(currentImage);
     ItemEditVisitor editVisitor(saveList);
     editItem->accept(editVisitor);
+    emit itemModified();
 }
 //aggiungere signal per segnalare modifica

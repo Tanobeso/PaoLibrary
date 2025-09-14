@@ -25,10 +25,13 @@ private:
     QVBoxLayout* filterLayout;
     QModelIndex currentIndex;
     QWidget* central;
+    bool unsavedChanges;
     void setupMenu();
     void setupFilters();
+protected:
+    void closeEvent(QCloseEvent* event) override;
 public:
-    explicit MainWindow(QWidget *parent = nullptr);
+    explicit MainWindow(QWidget* parent = nullptr);
 
 private slots:
     void loadFromJson();
@@ -41,6 +44,7 @@ private slots:
     void onBackHome();
     void onDelete();
     void onNewItem();
+    void onItemModified();
 };
 
 #endif // MAINWINDOW_H

@@ -280,13 +280,23 @@ void MainWindow::onDelete(){
 }
 
 void MainWindow::onNewItem() {
-    NewItemDialog dialog(this);
-    if (dialog.exec() == QDialog::Accepted) {
-        std::shared_ptr<AbstractItem> item = dialog.createItem();
+    itemDialog = new NewItemDialog;
+    stackedWidget->addWidget(itemDialog);
+    stackedWidget->setCurrentWidget(itemDialog);
+    connect(itemDialog, &NewItemDialog::confirm, this, [=]{
+        stackedWidget->removeWidget(itemDialog);
+        this->onBackHome();
+        std::shared_ptr<AbstractItem> item = itemDialog->createItem();
         if (item) {
             model->addRow(item);
         }
-    }
+        itemDialog->deleteLater();
+    });
+    connect(itemDialog, &NewItemDialog::discard, this,[=]{
+        stackedWidget->removeWidget(itemDialog);
+        itemDialog->deleteLater();
+        this->onBackHome();
+    });
 }
 
 void MainWindow::onItemModified(){

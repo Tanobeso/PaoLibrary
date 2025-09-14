@@ -4,9 +4,7 @@
 #include <QVBoxLayout>
 #include <QPushButton>
 
-NewItemDialog::NewItemDialog(QWidget* parent) : QDialog(parent) {
-    setWindowTitle("New item");
-
+NewItemDialog::NewItemDialog(QWidget* parent) : QWidget(parent) {
     typeCombo = new QComboBox();
     typeCombo->addItems({"Art", "Book", "Movie", "Series", "Videogame"});
     connect(typeCombo, QOverload<int>::of(&QComboBox::currentIndexChanged),
@@ -26,16 +24,23 @@ NewItemDialog::NewItemDialog(QWidget* parent) : QDialog(parent) {
     stackedWidget->addWidget(seriesForm);
     stackedWidget->addWidget(videogameForm);
 
-    QDialogButtonBox* buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
-    buttonBox->button(QDialogButtonBox::Ok)->setText("Create");
-    buttonBox->button(QDialogButtonBox::Cancel)->setText("Discard");
-    connect(buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
-    connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
+    auto btnCreate = new QPushButton("Create");
+    auto btnDiscard = new QPushButton("Discard");
+    QHBoxLayout* buttonLayout = new QHBoxLayout();
+    buttonLayout->addWidget(btnCreate);
+    buttonLayout->addWidget(btnDiscard);
+    connect(btnCreate, &QPushButton::clicked, this, [this]() {
+        emit confirm();
+    });
+    connect(btnDiscard, &QPushButton::clicked, this, [this]() {
+        emit discard();
+    });
+
 
     QVBoxLayout* mainLayout = new QVBoxLayout();
     mainLayout->addWidget(typeCombo);
     mainLayout->addWidget(stackedWidget);
-    mainLayout->addWidget(buttonBox);
+    mainLayout->addLayout(buttonLayout);
     setLayout(mainLayout);
 
     stackedWidget->setCurrentIndex(0);

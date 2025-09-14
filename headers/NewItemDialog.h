@@ -9,7 +9,7 @@
 #include "NewSeriesForm.h"
 #include "NewVideogameForm.h"
 
-class NewItemDialog : public QDialog {
+class NewItemDialog : public QWidget {
     Q_OBJECT
 public:
     explicit NewItemDialog(QWidget* parent = nullptr);
@@ -27,6 +27,10 @@ private:
     NewMovieForm* movieForm;
     NewSeriesForm* seriesForm;
     NewVideogameForm* videogameForm;
+
+signals:
+    void confirm();
+    void discard();
 };
 
 #endif // NEWITEMDIALOG_H

@@ -8,6 +8,7 @@
 #include <QVBoxLayout>
 #include <QStackedWidget>
 #include "ItemInfoVisitor.h"
+#include "NewItemDialog.h"
 
 class MainWindow : public QMainWindow
 {
@@ -25,6 +26,7 @@ private:
     QVBoxLayout* filterLayout;
     QModelIndex currentIndex;
     QWidget* central;
+    NewItemDialog* itemDialog;
     bool unsavedChanges;
     void setupMenu();
     void setupFilters();

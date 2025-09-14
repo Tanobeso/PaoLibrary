@@ -14,6 +14,7 @@ void ItemEditVisitor::visitArt(Art& art){
     art.setAuthor(modifiche[3].toStdString());
     art.setSize(modifiche[4].toStdString());
     art.setStyle(modifiche[5].toStdString());
+    art.setImage(modifiche[6].toStdString());
 };
 void ItemEditVisitor::visitBook(Book& book){
     book.setTitle(modifiche[0].toStdString());
@@ -24,6 +25,7 @@ void ItemEditVisitor::visitBook(Book& book){
     book.setPublisher(modifiche[5].toStdString());
     book.setGenre(modifiche[6].toStdString());
     book.setEdition(modifiche[7].toStdString());
+    book.setImage(modifiche[8].toStdString());
 };
 void ItemEditVisitor::visitMovie(Movie& movie){
     movie.setTitle(modifiche[0].toStdString());
@@ -34,6 +36,7 @@ void ItemEditVisitor::visitMovie(Movie& movie){
     movie.setCast(modifiche[5].toStdString());
     movie.setGenre(modifiche[6].toStdString());
     movie.setLength(modifiche[7].toUInt());
+    movie.setImage(modifiche[8].toStdString());
 };
 void ItemEditVisitor::visitSeries(Series& series){
     series.setTitle(modifiche[0].toStdString());
@@ -45,6 +48,7 @@ void ItemEditVisitor::visitSeries(Series& series){
     series.setGenre(modifiche[6].toStdString());
     series.setSeasons(modifiche[7].toUInt());
     series.setEpisodes(modifiche[8].toUInt());
+    series.setImage(modifiche[9].toStdString());
 };
 void ItemEditVisitor::visitVideogame(Videogame& videogame){
     videogame.setTitle(modifiche[0].toStdString());
@@ -53,4 +57,5 @@ void ItemEditVisitor::visitVideogame(Videogame& videogame){
     videogame.setPublisher(modifiche[3].toStdString());
     videogame.setGenre(modifiche[4].toStdString());
     videogame.setDeveloper(modifiche[5].toStdString());
+    videogame.setImage(modifiche[6].toStdString());
 };

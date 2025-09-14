@@ -1,11 +1,12 @@
 #ifndef ITEMINFOVISITOR_H
 #define ITEMINFOVISITOR_H
 
+#include "../headers/ItemVisitor.h"
 #include <QWidget>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QLabel>
-#include "../headers/ItemVisitor.h"
+#include <QPushButton>
 
 class ItemInfoVisitor: public QObject, public ItemVisitor{
     Q_OBJECT
@@ -17,7 +18,10 @@ private:
     QPixmap imagePixmap;
     QList<QWidget*> editList;
     QMap<QWidget*, QString> valoriOriginali;
-    AbstractItem* editItem; //mi serve per salvare modifiche
+    AbstractItem* editItem; //da passare a EditVisitor per salvare modifiche
+    QLabel* imageLabel;
+    QString currentImage;
+    QPushButton* btnBrowse;
 public:
     explicit ItemInfoVisitor(QObject* = nullptr);
     ~ItemInfoVisitor();
@@ -34,6 +38,7 @@ private slots:
     void onEdit();
     void onCancel();
     void onSave();
+    void onBrowse();
 signals:
     void home();
     void deleteRequest();

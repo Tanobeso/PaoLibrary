@@ -11,6 +11,8 @@
 #include <QTextEdit>
 #include <QPushButton>
 #include <QMessageBox>
+#include <QFileDialog>
+
 ItemInfoVisitor::ItemInfoVisitor(QObject* parent) : QObject(parent) {
     infoWidget = new QWidget();
     layout = new QVBoxLayout(infoWidget);
@@ -30,23 +32,27 @@ QWidget* ItemInfoVisitor::getWidget() const{
 
 void ItemInfoVisitor::infoSetup(AbstractItem& item) {
     editItem=&item;
-    QLabel* imageLabel = new QLabel();
-    if (item.getImage().empty()) {
+    imageLabel = new QLabel();
+    currentImage = QString::fromStdString(item.getImage());
+    if (currentImage.isEmpty()) {
         imagePixmap.load("resources/default.jpg");
     }
     else {
-        imagePixmap.load(QString::fromStdString(item.getImage()));
+        imagePixmap.load(currentImage);
     }
-    QPixmap scaledPixmap = imagePixmap.scaled(
-        400, 400,
-        Qt::KeepAspectRatio,
-        Qt::SmoothTransformation
-        );
+    QPixmap scaledPixmap = imagePixmap.scaled(400, 400,Qt::KeepAspectRatio,Qt::SmoothTransformation);
     imageLabel->setPixmap(scaledPixmap);
     imageLabel->setAlignment(Qt::AlignCenter);
     imageLabel->setFixedSize(scaledPixmap.size());
     imageLabel->setStyleSheet("border: 1px solid gray;");
-    itemLayout->addWidget(imageLabel);
+    QVBoxLayout* imageLayout = new QVBoxLayout;
+    imageLayout->addWidget(imageLabel);
+    btnBrowse = new QPushButton("Browse...");
+    imageLayout->addWidget(btnBrowse);
+    btnBrowse->hide();
+    connect(btnBrowse, &QPushButton::clicked, this, &ItemInfoVisitor::onBrowse);
+
+    itemLayout->addLayout(imageLayout);
     QFrame* vLine = new QFrame();
     vLine->setFrameShape(QFrame::VLine);
     vLine->setFrameShadow(QFrame::Sunken);
@@ -263,9 +269,9 @@ void ItemInfoVisitor::buttonSetup(){
     QPushButton* btnDelete = new QPushButton("Remove from library");
     QPushButton* btnEdit = new QPushButton("Edit");
     QPushButton* btnCancel = new QPushButton("Cancel");
-    btnCancel->setEnabled(false);
+    btnCancel->hide();
     QPushButton* btnSave = new QPushButton("Save");
-    btnSave->setEnabled(false);
+    btnSave->hide();
     QPushButton* btnBack = new QPushButton("Back");
 
     buttonLayout->addWidget(btnDelete);
@@ -291,21 +297,21 @@ void ItemInfoVisitor::buttonSetup(){
     });
     connect(btnBack, &QPushButton::clicked, this, &ItemInfoVisitor::onBackHome);
     connect(btnEdit, &QPushButton::clicked, this, [btnSave, btnCancel, btnEdit]() {
-        btnSave->setEnabled(true);
-        btnCancel->setEnabled(true);
+        btnSave->show();
+        btnCancel->show();
         btnEdit->setEnabled(false);
     });
     connect(btnEdit, &QPushButton::clicked, this, &ItemInfoVisitor::onEdit);
     connect(btnSave, &QPushButton::clicked, this, [btnEdit, btnCancel, btnSave]() {
         btnEdit->setEnabled(true);
-        btnCancel->setEnabled(false);
-        btnSave->setEnabled(false);
+        btnCancel->hide();
+        btnSave->hide();
     });
     connect(btnSave, &QPushButton::clicked, this, &ItemInfoVisitor::onSave);
     connect(btnCancel, &QPushButton::clicked, this, [btnSave, btnEdit, btnCancel]() {
-        btnSave->setEnabled(false);
+        btnSave->hide();
         btnEdit->setEnabled(true);
-        btnCancel->setEnabled(false);
+        btnCancel->hide();
     });
     connect(btnCancel, &QPushButton::clicked, this, &ItemInfoVisitor::onCancel);
 }
@@ -325,6 +331,7 @@ void ItemInfoVisitor::onBackHome() {
 
 void ItemInfoVisitor::onEdit(){
     valoriOriginali.clear();
+    btnBrowse->show();
     for (auto it = editList.constBegin(); it != editList.constEnd(); ++it) {
         if (auto lEdit = qobject_cast<QLineEdit*>(*it)) {
             lEdit->setReadOnly(false);
@@ -332,6 +339,20 @@ void ItemInfoVisitor::onEdit(){
         } else if (auto tEdit = qobject_cast<QTextEdit*>(*it)) {
             tEdit->setReadOnly(false);
             valoriOriginali[tEdit] = tEdit->toPlainText();
+        }
+    }
+    valoriOriginali[imageLabel] = currentImage;
+}
+
+void ItemInfoVisitor::onBrowse(){
+    QString filePath = QFileDialog::getOpenFileName(nullptr, "Select image", "", "Immages (*.png *.jpg *.jpeg *.bmp)");
+    if (!filePath.isEmpty()) {
+        QPixmap newPixmap;
+        if (newPixmap.load(filePath)) {
+            QPixmap scaledPixmap = newPixmap.scaled(400, 400, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+            imageLabel->setPixmap(scaledPixmap);
+            imageLabel->setFixedSize(scaledPixmap.size());
+            currentImage = filePath;
         }
     }
 }
@@ -346,6 +367,21 @@ void ItemInfoVisitor::onCancel(){
         } else if (auto tEdit = qobject_cast<QTextEdit*>(w)) {
             tEdit->setPlainText(valore);
             tEdit->setReadOnly(true);
+        } else if (w == imageLabel){
+            QPixmap originalPixmap;
+            QPixmap scaledPixmap;
+            if (originalPixmap.load(valore)) {
+                scaledPixmap = originalPixmap.scaled(400, 400, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+                currentImage = valore;
+                }
+            else{
+                originalPixmap.load("resources/default.jpg");
+                scaledPixmap = originalPixmap.scaled(400, 400, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+                currentImage = "resources/default.jpg";
+                }
+            imageLabel->setPixmap(scaledPixmap);
+            imageLabel->setFixedSize(scaledPixmap.size());
+            btnBrowse->hide();
         }
     }
 }
@@ -361,6 +397,7 @@ void ItemInfoVisitor::onSave(){
             saveList.append(tEdit->toPlainText());
         }
     }
+    saveList.append(currentImage);
     ItemEditVisitor editVisitor(saveList);
     editItem->accept(editVisitor);
 }

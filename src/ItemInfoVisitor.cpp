@@ -34,7 +34,7 @@ void ItemInfoVisitor::infoSetup(AbstractItem& item) {
     editItem=&item;
     imageLabel = new QLabel();
     currentImage = QString::fromStdString(item.getImage());
-    if (currentImage.isEmpty()) {
+    if (currentImage.isEmpty() || !imagePixmap.load(currentImage)) {
         imagePixmap.load("resources/default.jpg");
     }
     else {
@@ -352,7 +352,9 @@ void ItemInfoVisitor::onBrowse(){
             QPixmap scaledPixmap = newPixmap.scaled(400, 400, Qt::KeepAspectRatio, Qt::SmoothTransformation);
             imageLabel->setPixmap(scaledPixmap);
             imageLabel->setFixedSize(scaledPixmap.size());
-            currentImage = filePath;
+            QDir baseDir = QDir::current();
+            QString relativePath = baseDir.relativeFilePath(filePath);
+            currentImage = relativePath;
         }
     }
 }
@@ -402,4 +404,4 @@ void ItemInfoVisitor::onSave(){
     editItem->accept(editVisitor);
     emit itemModified();
 }
-//aggiungere signal per segnalare modifica
+

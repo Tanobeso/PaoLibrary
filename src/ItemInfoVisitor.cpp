@@ -117,7 +117,7 @@ void ItemInfoVisitor::visitBook(Book& book) {
     authorEdit->setReadOnly(true);
     editList.append(authorEdit);
 
-    QLabel* sizeLabel = new QLabel("Size:");
+    QLabel* sizeLabel = new QLabel("Pages:");
     infoLayout->addWidget(sizeLabel);
     QLineEdit* sizeEdit = new QLineEdit(QString::fromStdString(book.getSize()));
     infoLayout->addWidget(sizeEdit);
@@ -179,7 +179,7 @@ void ItemInfoVisitor::visitMovie(Movie& movie) {
     genreEdit->setReadOnly(true);
     editList.append(genreEdit);
 
-    QLabel* minutesLabel = new QLabel("Length:");
+    QLabel* minutesLabel = new QLabel("Length (min):");
     infoLayout->addWidget(minutesLabel);
     QLineEdit* minutesEdit = new QLineEdit(QString::number(movie.getLength()));
     infoLayout->addWidget(minutesEdit);

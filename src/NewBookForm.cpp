@@ -35,7 +35,7 @@ NewBookForm::NewBookForm(QWidget* parent): NewItemForm(parent){
     formLayout->addRow("Description:", descriptionEdit);
     formLayout->addRow("Year:", yearEdit);
     formLayout->addRow("Author:", authorEdit);
-    formLayout->addRow("Size:", sizeEdit);
+    formLayout->addRow("Pages:", sizeEdit);
     formLayout->addRow("Publisher:", publisherEdit);
     formLayout->addRow("Genre:", genreEdit);
     formLayout->addRow("Edition:", editionEdit);

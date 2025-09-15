@@ -6,10 +6,10 @@
         <Year>2001</Year>
         <Image>resources/lotr.jpg</Image>
         <Author>J. R. R. Tolkien</Author>
-        <Size>423</Size>
+        <Size>23 x 15 x 10</Size>
         <Publisher>George Allen &amp; Unwin</Publisher>
         <Genre>Fantasy</Genre>
-        <Edition>First edition</Edition>
+        <Edition>J. R. R. Tolkien</Edition>
     </Book>
     <Art>
         <Title>The Water Lilies Pond</Title>
@@ -83,10 +83,10 @@ Nika Futterman, Melissa Disney</Cast>
         <Year>2016</Year>
         <Image>resources/dulce_ridentem.jpg</Image>
         <Author>G. Garbarino, L. Pasquariello</Author>
-        <Size>432</Size>
+        <Size>30 x 22 cm</Size>
         <Publisher>Paravia</Publisher>
         <Genre>Education</Genre>
-        <Edition>First</Edition>
+        <Edition>G. Garbarino, L. Pasquariello</Edition>
     </Book>
     <Art>
         <Title>The Last Supper</Title>

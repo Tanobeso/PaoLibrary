@@ -2,11 +2,11 @@
     {
         "author": "J. R. R. Tolkien",
         "description": "The Fellowship of the Ring is the first of three volumes of the epic novel The Lord of the Rings by the English author J. R. R. Tolkien; it is followed by The Two Towers and The Return of the King. The action takes place in the fictional universe of Middle-earth. The first edition was published on 29 July 1954 in the United Kingdom, and consists of a foreword in which the author discusses the writing of The Lord of the Rings, a prologue titled \"Concerning Hobbits, and other matters\", and the main narrative divided into two \"books\".",
-        "edition": "First edition",
+        "edition": "J. R. R. Tolkien",
         "genre": "Fantasy",
         "image": "resources/lotr.jpg",
         "publisher": "George Allen & Unwin",
-        "size": "423",
+        "size": "23 x 15 x 10",
         "title": "The Lord of the Rings - The Fellowship of the Ring",
         "type": "book",
         "year": 2001
@@ -81,11 +81,11 @@
     {
         "author": "G. Garbarino, L. Pasquariello",
         "description": "Latin book",
-        "edition": "First",
+        "edition": "G. Garbarino, L. Pasquariello",
         "genre": "Education",
         "image": "resources/dulce_ridentem.jpg",
         "publisher": "Paravia",
-        "size": "432",
+        "size": "30 x 22 cm",
         "title": "Dulce ridentem 3",
         "type": "book",
         "year": 2016

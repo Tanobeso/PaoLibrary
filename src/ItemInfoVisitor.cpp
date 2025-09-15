@@ -117,7 +117,7 @@ void ItemInfoVisitor::visitBook(Book& book) {
     authorEdit->setReadOnly(true);
     editList.append(authorEdit);
 
-    QLabel* sizeLabel = new QLabel("Pages:");
+    QLabel* sizeLabel = new QLabel("Size:");
     infoLayout->addWidget(sizeLabel);
     QLineEdit* sizeEdit = new QLineEdit(QString::fromStdString(book.getSize()));
     infoLayout->addWidget(sizeEdit);

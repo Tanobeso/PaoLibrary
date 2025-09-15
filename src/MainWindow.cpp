@@ -297,6 +297,7 @@ void MainWindow::onNewItem() {
         itemDialog->deleteLater();
         this->onBackHome();
     });
+    onItemModified();
 }
 
 void MainWindow::onItemModified(){

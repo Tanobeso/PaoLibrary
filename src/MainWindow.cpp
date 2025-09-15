@@ -297,7 +297,7 @@ void MainWindow::onNewItem() {
         itemDialog->deleteLater();
         this->onBackHome();
     });
-    onItemModified();
+    unsavedChanges=true;
 }
 
 void MainWindow::onItemModified(){

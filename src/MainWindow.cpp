@@ -1,0 +1,322 @@
+#include "../headers/MainWindow.h"
+#include "../headers/JsonManager.h"
+#include "../headers/XmlManager.h"
+#include "../headers/NewItemDialog.h"
+#include <QAction>
+#include <QDebug>
+#include <QLayout>
+#include <QLineEdit>
+#include <QMenuBar>
+#include <QFileDialog>
+#include <QMessageBox>
+#include <QPushButton>
+#include <QShortcut>
+#include <QCloseEvent>
+
+
+MainWindow::MainWindow(QWidget* parent)
+    : QMainWindow(parent),
+    model(new LibraryModel(this)),
+    typeFilter(new LibraryTypeFilterModel(this)),
+    searchFilter(new LibrarySearchFilterModel(this)),
+    view(new QListView(this)),
+    searchEdit(new QLineEdit(this)),
+    stackedWidget(new QStackedWidget(this)),
+    filterLayout(new QVBoxLayout()),
+    central(new QWidget(this)),
+    unsavedChanges(false)
+{
+    typeFilter->setSourceModel(model);              // Filtri tipo e ricerca a cascata
+    searchFilter->setSourceModel(typeFilter);
+
+    searchFilter->sort(0, Qt::AscendingOrder);      // Ordinamento alfabetico
+
+    view->setModel(searchFilter);                   // Setup della listview
+    view->setViewMode(QListView::IconMode);
+    view->setIconSize(QSize(120, 160));
+    view->setGridSize(QSize(160, 200));
+    view->setResizeMode(QListView::Adjust);
+
+
+    setWindowTitle("Libreria Multimediale");    // Setup mainwindow
+    layout = new QVBoxLayout(central);
+    setupMenu();
+
+    auto centralLayout = new QHBoxLayout();
+    layout->addLayout(centralLayout);
+    auto libraryLayout = new QVBoxLayout();
+    setupFilters();
+    centralLayout->addLayout(filterLayout);
+    centralLayout->addLayout(libraryLayout);
+
+    libraryLayout->addWidget(searchEdit);
+    libraryLayout->addWidget(view);
+    setCentralWidget(stackedWidget);
+    stackedWidget->addWidget(central);
+
+    connect(searchEdit, &QLineEdit::textChanged, this, [this](const QString &text){
+        searchFilter->setTitleFilter(text);
+    });
+
+    connect(view, &QListView::clicked, this, &MainWindow::itemClicked);
+
+    // Shortcut
+
+    QShortcut* saveShortcut = new QShortcut(QKeySequence("Ctrl+S"), this);
+    connect(saveShortcut, &QShortcut::activated, this, &MainWindow::saveShortcut);
+};
+
+void MainWindow::setupMenu(){
+    QMenuBar *menuBar = new QMenuBar(this);
+    QMenu* fileMenu = menuBar->addMenu("File");
+    QAction* saveJsonAction = fileMenu->addAction("Salva come Json");
+    QAction* saveXmlAction = fileMenu->addAction("Salva come XML");
+    QAction* loadJsonAction = fileMenu->addAction("Carica da Json");
+    QAction* loadXmlAction = fileMenu->addAction("Carica da XML");
+    connect(loadJsonAction, &QAction::triggered, this, &MainWindow::loadFromJson);
+    connect(loadXmlAction, &QAction::triggered, this, &MainWindow::loadFromXml);
+    connect(saveJsonAction, &QAction::triggered, this, &MainWindow::saveAsJson);
+    connect(saveXmlAction, &QAction::triggered, this, &MainWindow::saveAsXml);
+    layout->setMenuBar(menuBar);
+}
+
+void MainWindow::setupFilters(){
+    QPushButton* btnAll = new QPushButton("All");
+    filterLayout->addWidget(btnAll);
+    connect(btnAll, &QPushButton::clicked, this,[=](){
+        setType("");
+    });
+    QFrame* hLine = new QFrame();
+    hLine->setFrameShape(QFrame::HLine);
+    hLine->setFrameShadow(QFrame::Sunken);
+    filterLayout->addWidget(hLine);
+    QPushButton* btnArt = new QPushButton("Art");
+    filterLayout->addWidget(btnArt);
+    connect(btnArt, &QPushButton::clicked, this,[=](){
+        setType("Art");
+    });
+    QPushButton* btnBook = new QPushButton("Books");
+    filterLayout->addWidget(btnBook);
+    connect(btnBook, &QPushButton::clicked, this,[=](){
+        setType("Book");
+    });
+    QPushButton* btnMovie = new QPushButton("Movies");
+    filterLayout->addWidget(btnMovie);
+    connect(btnMovie, &QPushButton::clicked, this,[=](){
+        setType("Movie");
+    });
+    QPushButton* btnSeries = new QPushButton("Series");
+    filterLayout->addWidget(btnSeries);
+    connect(btnSeries, &QPushButton::clicked, this,[=](){
+        setType("Series");
+    });
+    QPushButton* btnVideogame = new QPushButton("Videogames");
+    filterLayout->addWidget(btnVideogame);
+    connect(btnVideogame, &QPushButton::clicked, this,[=](){
+        setType("Videogame");
+    });
+    filterLayout->addStretch();
+    QPushButton* btnNewItem = new QPushButton("New Item");
+    filterLayout->addWidget(btnNewItem);
+    connect(btnNewItem, &QPushButton::clicked, this, &MainWindow::onNewItem);
+}
+
+void MainWindow::loadFromJson(){
+    QString fileName = QFileDialog::getOpenFileName(
+        this,
+        "Seleziona file JSON",
+        QDir::homePath(),
+        "JSON files (*.json);;All files (*)"
+        );
+
+    if (!fileName.isEmpty()) {
+        model->loadLib(loadJson(fileName));
+    }
+};
+void MainWindow::loadFromXml(){
+    QString fileName = QFileDialog::getOpenFileName(
+        this,
+        "Seleziona file XML",
+        QDir::homePath(),
+        "XML files (*.xml);;All files (*)"
+        );
+
+    if (!fileName.isEmpty()) {
+        model->loadLib(loadXml(fileName));
+    }
+};
+
+
+void MainWindow::saveAsJson(){
+    QString fileName = QFileDialog::getSaveFileName(
+        this,
+        "Salva come JSON",
+        QDir::homePath(),
+        "JSON files (*.json);;All files (*)"
+        );
+
+    if (!fileName.isEmpty()) {
+        if (!fileName.endsWith(".json", Qt::CaseInsensitive)) {
+            fileName += ".json";
+        }
+
+#ifdef Q_OS_WIN
+        // Su Windows non serve conferma -> evitiamo doppia conferma
+#else
+        // Su Linux serve conferma sovrascrittura perché non c'è di default
+        if (QFile::exists(fileName)) {
+            auto reply = QMessageBox::question(
+                this,
+                "Conferma sovrascrittura",
+                QString("Il file \"%1\" esiste già.\nVuoi sovrascriverlo?").arg(fileName),
+                QMessageBox::Yes | QMessageBox::No
+                );
+
+            if (reply != QMessageBox::Yes)
+                return;
+        }
+#endif
+
+        model->saveAsJson(fileName);
+        unsavedChanges=false;
+    }
+};
+
+
+void MainWindow::saveAsXml(){
+    QString fileName = QFileDialog::getSaveFileName(
+        this,
+        "Salva come XML",
+        QDir::homePath(),
+        "XML files (*.xml);;All files (*)"
+        );
+
+    if (!fileName.isEmpty()) {
+        if (!fileName.endsWith(".xml", Qt::CaseInsensitive)) {
+            fileName += ".xml";
+        }
+
+#ifdef Q_OS_WIN
+        // Su Windows non serve conferma -> evitiamo doppia conferma
+#else
+        // Su Linux serve conferma sovrascrittura perché non c'è di default
+        if (QFile::exists(fileName)) {
+            auto reply = QMessageBox::question(
+                this,
+                "Conferma sovrascrittura",
+                QString("Il file \"%1\" esiste già.\nVuoi sovrascriverlo?").arg(fileName),
+                QMessageBox::Yes | QMessageBox::No
+                );
+
+            if (reply != QMessageBox::Yes)
+                return;
+        }
+#endif
+
+        model->saveAsXml(fileName);
+        unsavedChanges=false;
+    }
+};
+
+void MainWindow::saveShortcut(){
+    QDialog dialog(this);
+    dialog.setWindowTitle("Scegli il formato di salvataggio");  // Finestra scelta formato con scorciatoia salvataggio
+
+    QPushButton *btnJson = new QPushButton("Salva come JSON");
+    QPushButton *btnXml = new QPushButton("Salva come XML");
+
+    QHBoxLayout *layout = new QHBoxLayout;
+    layout->addWidget(btnJson);
+    layout->addWidget(btnXml);
+    dialog.setLayout(layout);
+
+    connect(btnJson, &QPushButton::clicked, &dialog, [&](){
+        saveAsJson();
+        dialog.accept();
+    });
+
+    connect(btnXml, &QPushButton::clicked, &dialog, [&](){
+        saveAsXml();
+        dialog.accept();
+    });
+
+    dialog.exec();
+    unsavedChanges=false;
+};
+
+void MainWindow::itemClicked(const QModelIndex& index){
+    if (!index.isValid()) return;
+
+    currentIndex = index; //per sapere che elemento eliminare in caso di delete
+    AbstractItem* item = index.data(Qt::UserRole+3).value<AbstractItem*>();
+    infoVisitor = new ItemInfoVisitor(this);
+    connect(infoVisitor, &ItemInfoVisitor::home, this, &MainWindow::onBackHome);
+    connect(infoVisitor, &ItemInfoVisitor::deleteRequest, this, &MainWindow::onDelete);
+    connect(infoVisitor, &ItemInfoVisitor::itemModified,this, &MainWindow::onItemModified);
+    item->accept(*infoVisitor);
+    QWidget* infoWidget = infoVisitor->getWidget();
+    stackedWidget->addWidget(infoWidget);
+    stackedWidget->setCurrentWidget(infoWidget);
+}
+
+void MainWindow::setType(const string& filter){
+    typeFilter->setTypeFilter(QString::fromStdString(filter));
+}
+
+void MainWindow::onBackHome(){
+    stackedWidget->setCurrentIndex(stackedWidget->indexOf(central));
+}
+
+void MainWindow::onDelete(){
+    if (!currentIndex.isValid()) return;
+
+    QModelIndex proxySourceIndex = searchFilter->mapToSource(currentIndex); //risaliamo al modello originale
+    QModelIndex sourceIndex = typeFilter->mapToSource(proxySourceIndex);
+    LibraryModel* modelCast = qobject_cast<LibraryModel*>(typeFilter->sourceModel());
+    if(!modelCast || !sourceIndex.isValid()) return;
+    modelCast->removeRow(sourceIndex.row(), sourceIndex.parent());
+
+    currentIndex = QModelIndex();
+}
+
+void MainWindow::onNewItem() {
+    itemDialog = new NewItemDialog;
+    stackedWidget->addWidget(itemDialog);
+    stackedWidget->setCurrentWidget(itemDialog);
+    connect(itemDialog, &NewItemDialog::confirm, this, [=]{
+        stackedWidget->removeWidget(itemDialog);
+        this->onBackHome();
+        std::shared_ptr<AbstractItem> item = itemDialog->createItem();
+        if (item) {
+            model->addRow(item);
+        }
+        itemDialog->deleteLater();
+    });
+    connect(itemDialog, &NewItemDialog::discard, this,[=]{
+        stackedWidget->removeWidget(itemDialog);
+        itemDialog->deleteLater();
+        this->onBackHome();
+    });
+    unsavedChanges=true;
+}
+
+void MainWindow::onItemModified(){
+    unsavedChanges=true;
+}
+
+void MainWindow::closeEvent(QCloseEvent* event) {
+    if (unsavedChanges) {
+        QMessageBox::StandardButton reply = QMessageBox::warning(
+            this, "Modifiche non salvate",
+            "Hai delle modifiche non salvate. Vuoi uscire comunque?",
+            QMessageBox::Yes | QMessageBox::No);
+
+        if (reply == QMessageBox::Yes) {
+            event->accept();
+        } else {
+            event->ignore();
+        }
+    } else {
+        event->accept();
+    }
+}

@@ -1,0 +1,112 @@
+<!DOCTYPE MediaLibrary>
+<Library>
+    <Book>
+        <Title>The Lord of the Rings - The Fellowship of the Ring</Title>
+        <Description>The Fellowship of the Ring is the first of three volumes of the epic novel The Lord of the Rings by the English author J. R. R. Tolkien; it is followed by The Two Towers and The Return of the King. The action takes place in the fictional universe of Middle-earth. The first edition was published on 29 July 1954 in the United Kingdom, and consists of a foreword in which the author discusses the writing of The Lord of the Rings, a prologue titled "Concerning Hobbits, and other matters", and the main narrative divided into two "books".</Description>
+        <Year>2001</Year>
+        <Image>resources/lotr.jpg</Image>
+        <Author>J. R. R. Tolkien</Author>
+        <Size>23 x 15 x 10</Size>
+        <Publisher>George Allen &amp; Unwin</Publisher>
+        <Genre>Fantasy</Genre>
+        <Edition>J. R. R. Tolkien</Edition>
+    </Book>
+    <Art>
+        <Title>The Water Lilies Pond</Title>
+        <Description>The Water Lilies Pond is a painting by Claude Monet. Executed in 1899, it is preserved in the National Gallery in London. It is one of the numerous paintings in which Monet, in the last phase of his life, conducted the study of the surface of water. The subject is the celebrated little bridge over the pond on his property of Giverny[1], also depicted in other almost identical paintings: The Water Lilies Pond, Pink Harmony and The Water Lilies Pond, Green Harmony (Paris, Musée d'Orsay), and White Water Lilies (Moscow, Pushkin Museum of Fine Arts)</Description>
+        <Year>1899</Year>
+        <Image>resources/monet-claude-lo-stagno-delle-ninfee-e-ponte-giapponese.jpg</Image>
+        <Author>Claude Monet</Author>
+        <Size>88×93 cm</Size>
+        <Style>Impressionism</Style>
+    </Art>
+    <Movie>
+        <Title>Dune</Title>
+        <Description>Dune (titled as Dune: Part One on-screen) is a 2021 American epic space opera film directed and co-produced by Denis Villeneuve, who co-wrote the screenplay with Jon Spaihts and Eric Roth. It is the first of a two-part adaptation of the 1965 novel by Frank Herbert, and the first installment of Villeneuve's Dune film trilogy. Set in the distant future, the film follows Paul Atreides as his family, the noble House Atreides, is thrust into a war for the deadly and inhospitable desert planet Arrakis.</Description>
+        <Year>2021</Year>
+        <Image>resources/Dune_Poster.jpg</Image>
+        <Publisher>Warner Bros</Publisher>
+        <Genre>Sci-fi</Genre>
+        <Cast>Timothée Chalamet, Zendaya, Rebecca Ferguson, Jason Momoa, Chang Chen, Oscar Isaac, Dave Bautista and others</Cast>
+        <Director>Denis Villeneuve</Director>
+        <Length>155</Length>
+    </Movie>
+    <Series>
+        <Title>Jakers! The Adventures of Piggley Winks</Title>
+        <Description>Jakers! The Adventures of Piggley Winks, or Jakers in Europe, is an animated children's television series created and developed by Mike Young, Liz Young, Sindy McKay-Swerdlove and John Over based on an original idea by Denise Fitzpatrick and produced by Entara in association with Mike Young Productions with the animation provided by Crest Communications. The series was broadcast on PBS Kids in the United States, and on CBBC and CBeebies in the United Kingdom. It was also broadcast in Australia on ABC Kids.</Description>
+        <Year>2003</Year>
+        <Image>resources/Le_avventure_di_Piggley_Winks.jpg</Image>
+        <Publisher>PBS Kids (US)</Publisher>
+        <Genre>Children's television series</Genre>
+        <Cast>Peadar Lamb,
+Maile Flanagan,
+Russi Taylor,
+Tara Strong,
+Charlie Adler,
+Nika Futterman, Melissa Disney</Cast>
+        <Director>John Over, Jeff Gordon</Director>
+        <Seasons>3</Seasons>
+        <Episodes>52</Episodes>
+    </Series>
+    <Videogame>
+        <Title>Clair Obscur</Title>
+        <Description>Clair Obscur: Expedition 33 is a 2025 role-playing video game developed by French studio Sandfall Interactive and published by Kepler Interactive. Taking place in a dark fantasy Baguette Epoque setting, the game follows the volunteers of Expedition 33 as they set out to destroy the Paintress, a being causing the yearly Gommage, which erases those at or above an ever-decreasing age. In the game, the player controls a party of characters from a third-person perspective, exploring areas and engaging in combat. Coupled with its turn-based mechanics are real-time aspects such as quick time events and timed actions in combat. </Description>
+        <Year>2025</Year>
+        <Image>resources/clair-obscur.jpg</Image>
+        <Publisher>Kepler Interactive</Publisher>
+        <Genre>Role-playing</Genre>
+        <Developer>Sandfall Interactive</Developer>
+    </Videogame>
+    <Videogame>
+        <Title>Worms 2</Title>
+        <Description>Worms 2 is a 1997 artillery tactical game developed and published by Team17 and released for Windows. It is part of the Worms series and a sequel to the 1995 game Worms. As with the first game, players control their team of worms in combat against each other, using a wide collection of rockets, grenades, firearms, explosives, and air strikes, some eclectic and others bizarre. Also as with the first game, the objective is to eliminate all opposing worms and become the sole surviving team.</Description>
+        <Year>1997</Year>
+        <Image>resources/Worms2-cover.jpg</Image>
+        <Publisher>Team17</Publisher>
+        <Genre>Artillery, strategy</Genre>
+        <Developer>Team17</Developer>
+    </Videogame>
+    <Movie>
+        <Title>Taylor Swift: The Eras Tour</Title>
+        <Description>Taylor Swift: The Eras Tour is a 2023 American concert film produced by the singer-songwriter Taylor Swift and directed by Sam Wrench. It documents the Los Angeles shows of the Eras Tour (2023–2024), Swift's sixth headlining concert tour and the highest-grossing tour of all time. Swift struck an unprecedented distribution agreement with AMC Theatres and Cinemark Theatres for the film after negotiations with the major film studios fell through. </Description>
+        <Year>2023</Year>
+        <Image>resources/taylor.jpeg</Image>
+        <Publisher>AMC Theatres, Variance Films, and Alibaba Pictures</Publisher>
+        <Genre>Documentary</Genre>
+        <Cast>Taylor Swift</Cast>
+        <Director>Sam Wrench</Director>
+        <Length>169</Length>
+    </Movie>
+    <Book>
+        <Title>Dulce ridentem 3</Title>
+        <Description>Latin book</Description>
+        <Year>2016</Year>
+        <Image>resources/dulce_ridentem.jpg</Image>
+        <Author>G. Garbarino, L. Pasquariello</Author>
+        <Size>30 x 22 cm</Size>
+        <Publisher>Paravia</Publisher>
+        <Genre>Education</Genre>
+        <Edition>G. Garbarino, L. Pasquariello</Edition>
+    </Book>
+    <Art>
+        <Title>The Last Supper</Title>
+        <Description>The Last Supper (Italian: Il Cenacolo [il tʃeˈnaːkolo] or L'Ultima Cena [ˈlultima ˈtʃeːna]) is a mural painting by the Italian High Renaissance artist Leonardo da Vinci, dated to c. 1495–1498, housed in the refectory of the Convent of Santa Maria delle Grazie in Milan, Italy. The painting represents the scene of the Last Supper of Jesus with the Twelve Apostles, as it is told in the Gospel of John – specifically the moment after Jesus announces that one of his apostles will betray him.</Description>
+        <Year>1495</Year>
+        <Image>resources/UltimaCena_CDM_1280x560.jpeg</Image>
+        <Author>Leonardo Da Vinci</Author>
+        <Size>460 cm × 880 cm</Size>
+        <Style>High Renaissance</Style>
+    </Art>
+    <Series>
+        <Title>Hamtaro</Title>
+        <Description>This is a list of episodes from the anime series Hamtaro, based on the children's book series by Ritsuko Kawai. The anime series is directed by Osamu Nabeshima and produced by ShoPro, Shogakukan Music &amp; Digital Entertainment and TV Tokyo. The series involves the adventure of a brave and childlike hamster named Hamtaro, with his Ham-Ham friends. It began airing in Japan on July 7, 2000. Hamtaro has been aired throughout the world on many stations.</Description>
+        <Year>2000</Year>
+        <Image>resources/Hamtaro.jpg</Image>
+        <Publisher>ShoPro, Shogakukan Music &amp; Digital Entertainment, TV Tokyo</Publisher>
+        <Genre>Children's television series</Genre>
+        <Cast>Kurumi Mamiya, Moneca Stori and others</Cast>
+        <Director>Osamu Nabeshima</Director>
+        <Seasons>12</Seasons>
+        <Episodes>296</Episodes>
+    </Series>
+</Library>
